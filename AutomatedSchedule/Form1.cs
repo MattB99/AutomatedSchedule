@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 namespace AutomatedSchedule
 {
-    public partial class Form1 : Form
+    public partial class AutomatedScheduler : Form
     {
-        public Form1()
+        public AutomatedScheduler()
         {
             InitializeComponent();
         }
@@ -58,6 +58,16 @@ namespace AutomatedSchedule
         private void editUserDataBtn_Click(object sender, EventArgs e)
         {
             System.IO.File.WriteAllLines(@"userData.txt", new string[]{fNameBox.Text, lNameBox.Text, usernameBox.Text, passwordBox.Text});
+        }
+
+        private void About_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Created by Matthew Bocharnikov and Greg Fairbanks\nNot for resale or redistribution without permission.");
+        }
+
+        private void passwordBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

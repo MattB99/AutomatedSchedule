@@ -1,6 +1,6 @@
 ﻿namespace AutomatedSchedule
 {
-    partial class Form1
+    partial class AutomatedScheduler
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutomatedScheduler));
             this.getDataBtn = new System.Windows.Forms.Button();
             this.usernameBox = new System.Windows.Forms.TextBox();
             this.passwordBox = new System.Windows.Forms.TextBox();
@@ -37,94 +38,167 @@
             this.fNameBox = new System.Windows.Forms.TextBox();
             this.lNameBox = new System.Windows.Forms.TextBox();
             this.editUserDataBtn = new System.Windows.Forms.Button();
+            this.Title = new System.Windows.Forms.Label();
+            this.About = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // getDataBtn
             // 
-            this.getDataBtn.Location = new System.Drawing.Point(472, 322);
+            this.getDataBtn.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.getDataBtn.Location = new System.Drawing.Point(253, 290);
             this.getDataBtn.Name = "getDataBtn";
-            this.getDataBtn.Size = new System.Drawing.Size(75, 23);
+            this.getDataBtn.Size = new System.Drawing.Size(100, 42);
             this.getDataBtn.TabIndex = 0;
-            this.getDataBtn.Text = "button1";
-            this.getDataBtn.UseVisualStyleBackColor = true;
+            this.getDataBtn.Text = "Search";
+            this.getDataBtn.UseVisualStyleBackColor = false;
             this.getDataBtn.Click += new System.EventHandler(this.button1_Click);
             // 
             // usernameBox
             // 
-            this.usernameBox.Location = new System.Drawing.Point(71, 127);
+            this.usernameBox.Location = new System.Drawing.Point(119, 181);
             this.usernameBox.Name = "usernameBox";
             this.usernameBox.Size = new System.Drawing.Size(100, 26);
             this.usernameBox.TabIndex = 1;
             // 
             // passwordBox
             // 
-            this.passwordBox.Location = new System.Drawing.Point(71, 181);
+            this.passwordBox.Location = new System.Drawing.Point(119, 235);
             this.passwordBox.Name = "passwordBox";
             this.passwordBox.Size = new System.Drawing.Size(100, 26);
             this.passwordBox.TabIndex = 2;
+            this.passwordBox.UseSystemPasswordChar = true;
+            this.passwordBox.TextChanged += new System.EventHandler(this.passwordBox_TextChanged);
             // 
             // tenDayInc
             // 
             this.tenDayInc.AutoSize = true;
-            this.tenDayInc.Location = new System.Drawing.Point(442, 68);
+            this.tenDayInc.Location = new System.Drawing.Point(253, 70);
             this.tenDayInc.Name = "tenDayInc";
-            this.tenDayInc.Size = new System.Drawing.Size(126, 24);
+            this.tenDayInc.Size = new System.Drawing.Size(92, 24);
             this.tenDayInc.TabIndex = 3;
             this.tenDayInc.TabStop = true;
-            this.tenDayInc.Text = "radioButton1";
+            this.tenDayInc.Text = "10 Days";
             this.tenDayInc.UseVisualStyleBackColor = true;
             // 
             // twentyDayInc
             // 
             this.twentyDayInc.AutoSize = true;
-            this.twentyDayInc.Location = new System.Drawing.Point(442, 127);
+            this.twentyDayInc.Location = new System.Drawing.Point(253, 129);
             this.twentyDayInc.Name = "twentyDayInc";
-            this.twentyDayInc.Size = new System.Drawing.Size(126, 24);
+            this.twentyDayInc.Size = new System.Drawing.Size(92, 24);
             this.twentyDayInc.TabIndex = 4;
             this.twentyDayInc.TabStop = true;
-            this.twentyDayInc.Text = "radioButton1";
+            this.twentyDayInc.Text = "20 Days";
             this.twentyDayInc.UseVisualStyleBackColor = true;
             // 
             // thirtyDayInc
             // 
             this.thirtyDayInc.AutoSize = true;
-            this.thirtyDayInc.Location = new System.Drawing.Point(442, 181);
+            this.thirtyDayInc.Location = new System.Drawing.Point(253, 183);
             this.thirtyDayInc.Name = "thirtyDayInc";
-            this.thirtyDayInc.Size = new System.Drawing.Size(126, 24);
+            this.thirtyDayInc.Size = new System.Drawing.Size(92, 24);
             this.thirtyDayInc.TabIndex = 5;
             this.thirtyDayInc.TabStop = true;
-            this.thirtyDayInc.Text = "radioButton1";
+            this.thirtyDayInc.Text = "30 Days";
             this.thirtyDayInc.UseVisualStyleBackColor = true;
             // 
             // fNameBox
             // 
-            this.fNameBox.Location = new System.Drawing.Point(71, 12);
+            this.fNameBox.Location = new System.Drawing.Point(119, 66);
             this.fNameBox.Name = "fNameBox";
             this.fNameBox.Size = new System.Drawing.Size(100, 26);
             this.fNameBox.TabIndex = 6;
             // 
             // lNameBox
             // 
-            this.lNameBox.Location = new System.Drawing.Point(71, 66);
+            this.lNameBox.Location = new System.Drawing.Point(119, 120);
             this.lNameBox.Name = "lNameBox";
             this.lNameBox.Size = new System.Drawing.Size(100, 26);
             this.lNameBox.TabIndex = 7;
             // 
             // editUserDataBtn
             // 
-            this.editUserDataBtn.Location = new System.Drawing.Point(81, 347);
+            this.editUserDataBtn.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.editUserDataBtn.Location = new System.Drawing.Point(119, 290);
             this.editUserDataBtn.Name = "editUserDataBtn";
-            this.editUserDataBtn.Size = new System.Drawing.Size(75, 23);
+            this.editUserDataBtn.Size = new System.Drawing.Size(100, 42);
             this.editUserDataBtn.TabIndex = 8;
-            this.editUserDataBtn.Text = "button2";
-            this.editUserDataBtn.UseVisualStyleBackColor = true;
+            this.editUserDataBtn.Text = "Enter";
+            this.editUserDataBtn.UseVisualStyleBackColor = false;
             this.editUserDataBtn.Click += new System.EventHandler(this.editUserDataBtn_Click);
             // 
-            // Form1
+            // Title
+            // 
+            this.Title.AutoSize = true;
+            this.Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Title.Location = new System.Drawing.Point(12, 21);
+            this.Title.Name = "Title";
+            this.Title.Size = new System.Drawing.Size(367, 29);
+            this.Title.TabIndex = 9;
+            this.Title.Text = "Automated Schedule Searcher";
+            // 
+            // About
+            // 
+            this.About.Location = new System.Drawing.Point(197, 359);
+            this.About.Name = "About";
+            this.About.Size = new System.Drawing.Size(75, 45);
+            this.About.TabIndex = 10;
+            this.About.Text = "About";
+            this.About.UseVisualStyleBackColor = true;
+            this.About.Click += new System.EventHandler(this.About_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 70);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(86, 20);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "First Name";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 241);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(78, 20);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Password";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(17, 185);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(83, 20);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Username";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(17, 123);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(86, 20);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Last Name";
+            // 
+            // AutomatedScheduler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.ClientSize = new System.Drawing.Size(396, 429);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.About);
+            this.Controls.Add(this.Title);
             this.Controls.Add(this.editUserDataBtn);
             this.Controls.Add(this.lNameBox);
             this.Controls.Add(this.fNameBox);
@@ -134,8 +208,9 @@
             this.Controls.Add(this.passwordBox);
             this.Controls.Add(this.usernameBox);
             this.Controls.Add(this.getDataBtn);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "AutomatedScheduler";
+            this.Text = "Automated Scheduler";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -152,6 +227,12 @@
         private System.Windows.Forms.TextBox fNameBox;
         private System.Windows.Forms.TextBox lNameBox;
         private System.Windows.Forms.Button editUserDataBtn;
+        private System.Windows.Forms.Label Title;
+        private System.Windows.Forms.Button About;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
 

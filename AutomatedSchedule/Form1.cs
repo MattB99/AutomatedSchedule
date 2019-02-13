@@ -287,6 +287,11 @@ namespace AutomatedSchedule
 
         }
 
+        private void Title_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void notepadView_Click(object sender, EventArgs e)
         { 
             Process.Start(@"rawSchedule.txt");

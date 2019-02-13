@@ -155,11 +155,12 @@
             // 
             this.Title.AutoSize = true;
             this.Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Title.Location = new System.Drawing.Point(12, 21);
+            this.Title.Location = new System.Drawing.Point(169, 9);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(367, 29);
+            this.Title.Size = new System.Drawing.Size(770, 29);
             this.Title.TabIndex = 9;
-            this.Title.Text = "Automated Schedule Searcher";
+            this.Title.Text = "Virginia Tech Production Services Automated Schedule Searcher";
+            this.Title.Click += new System.EventHandler(this.Title_Click);
             // 
             // About
             // 

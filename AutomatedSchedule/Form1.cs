@@ -106,6 +106,10 @@ new System.DateTime[] {new System.DateTime(2019, 2, 15, 0, 0, 0, 0),
 
         private void AutomatedScheduler_Load(object sender, EventArgs e)
         {
+            fNameBox.TabIndex = 1;
+            lNameBox.TabIndex = 2;
+            usernameBox.TabIndex = 3;
+            passwordBox.TabIndex = 4;
 
         }
 

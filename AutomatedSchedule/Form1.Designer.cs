@@ -269,7 +269,7 @@
             // 
             // selectedShift
             // 
-            this.selectedShift.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.selectedShift.Cursor = System.Windows.Forms.Cursors.No;
             this.selectedShift.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.selectedShift.Location = new System.Drawing.Point(735, 80);
             this.selectedShift.Name = "selectedShift";
@@ -306,6 +306,8 @@
             // 
             // AutomatedScheduler
             // 
+            this.AccessibleDescription = "Schedule searcher for Virginia Tech\'s Production Services CEP interace.";
+            this.AccessibleName = "Automated Scheduler";
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;

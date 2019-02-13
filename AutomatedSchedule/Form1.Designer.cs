@@ -227,6 +227,7 @@
             this.calendar.Cursor = System.Windows.Forms.Cursors.Cross;
             this.calendar.FirstDayOfWeek = System.Windows.Forms.Day.Sunday;
             this.calendar.Location = new System.Drawing.Point(394, 80);
+            this.calendar.MaxSelectionCount = 1;
             this.calendar.Name = "calendar";
             this.calendar.ShowTodayCircle = false;
             this.calendar.TabIndex = 16;
@@ -359,7 +360,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RadioButton fiveDayInc;
-        private System.Windows.Forms.MonthCalendar calendar;
         private System.Windows.Forms.Button excelView;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
@@ -367,6 +367,7 @@
         private System.Windows.Forms.Button notepadView;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.MonthCalendar calendar;
     }
 }
 

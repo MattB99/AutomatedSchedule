@@ -292,7 +292,6 @@ namespace AutomatedSchedule
             
             File.WriteAllLines(@"notepadExportSchedule.txt", formattedScheduleData);
             Console.WriteLine(tempScheduleAry.Length);
-
         }
 
         private void allShifts_Click(object sender, EventArgs e)

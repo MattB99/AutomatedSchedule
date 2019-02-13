@@ -55,6 +55,7 @@
             // getDataBtn
             // 
             this.getDataBtn.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.getDataBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.getDataBtn.Location = new System.Drawing.Point(253, 290);
             this.getDataBtn.Name = "getDataBtn";
             this.getDataBtn.Size = new System.Drawing.Size(100, 42);
@@ -82,6 +83,7 @@
             // tenDayInc
             // 
             this.tenDayInc.AutoSize = true;
+            this.tenDayInc.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tenDayInc.Location = new System.Drawing.Point(253, 123);
             this.tenDayInc.Name = "tenDayInc";
             this.tenDayInc.Size = new System.Drawing.Size(92, 24);
@@ -93,6 +95,7 @@
             // twentyDayInc
             // 
             this.twentyDayInc.AutoSize = true;
+            this.twentyDayInc.Cursor = System.Windows.Forms.Cursors.Hand;
             this.twentyDayInc.Location = new System.Drawing.Point(253, 182);
             this.twentyDayInc.Name = "twentyDayInc";
             this.twentyDayInc.Size = new System.Drawing.Size(92, 24);
@@ -104,6 +107,7 @@
             // thirtyDayInc
             // 
             this.thirtyDayInc.AutoSize = true;
+            this.thirtyDayInc.Cursor = System.Windows.Forms.Cursors.Hand;
             this.thirtyDayInc.Location = new System.Drawing.Point(253, 236);
             this.thirtyDayInc.Name = "thirtyDayInc";
             this.thirtyDayInc.Size = new System.Drawing.Size(92, 24);
@@ -130,6 +134,7 @@
             // editUserDataBtn
             // 
             this.editUserDataBtn.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.editUserDataBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.editUserDataBtn.Location = new System.Drawing.Point(119, 290);
             this.editUserDataBtn.Name = "editUserDataBtn";
             this.editUserDataBtn.Size = new System.Drawing.Size(100, 42);
@@ -150,6 +155,7 @@
             // 
             // About
             // 
+            this.About.Cursor = System.Windows.Forms.Cursors.Hand;
             this.About.Location = new System.Drawing.Point(197, 359);
             this.About.Name = "About";
             this.About.Size = new System.Drawing.Size(75, 45);
@@ -197,6 +203,7 @@
             // fiveDayInc
             // 
             this.fiveDayInc.AutoSize = true;
+            this.fiveDayInc.Cursor = System.Windows.Forms.Cursors.Hand;
             this.fiveDayInc.Location = new System.Drawing.Point(253, 70);
             this.fiveDayInc.Name = "fiveDayInc";
             this.fiveDayInc.Size = new System.Drawing.Size(83, 24);
@@ -208,6 +215,7 @@
             // 
             // calendar
             // 
+            this.calendar.Cursor = System.Windows.Forms.Cursors.Cross;
             this.calendar.Location = new System.Drawing.Point(394, 80);
             this.calendar.Name = "calendar";
             this.calendar.ShowTodayCircle = false;
@@ -216,6 +224,7 @@
             // 
             // nextShift
             // 
+            this.nextShift.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.nextShift.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nextShift.Location = new System.Drawing.Point(737, 80);
             this.nextShift.Name = "nextShift";
@@ -237,6 +246,7 @@
             // 
             // allShifts
             // 
+            this.allShifts.Cursor = System.Windows.Forms.Cursors.Hand;
             this.allShifts.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.allShifts.Location = new System.Drawing.Point(392, 345);
             this.allShifts.Name = "allShifts";

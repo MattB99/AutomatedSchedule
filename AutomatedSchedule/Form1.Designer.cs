@@ -305,7 +305,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1109, 443);
+            this.ClientSize = new System.Drawing.Size(1109, 423);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.notepadView);
             this.Controls.Add(this.label7);

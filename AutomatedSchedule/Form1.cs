@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 namespace AutomatedSchedule
 {
-    public partial class Form1 : Form
+    public partial class AutomatedScheduler : Form
     {
-        public Form1()
+        public AutomatedScheduler()
         {
             InitializeComponent();
         }
@@ -57,7 +57,49 @@ namespace AutomatedSchedule
 
         private void editUserDataBtn_Click(object sender, EventArgs e)
         {
-            System.IO.File.WriteAllLines(@"userData.txt", new string[]{fNameBox.Text, lNameBox.Text, usernameBox.Text, passwordBox.Text});
+            if (fNameBox.Text != "" && lNameBox.Text != "" && usernameBox.Text != "" && passwordBox.Text != "")
+                System.IO.File.WriteAllLines(@"userData.txt", new string[] { fNameBox.Text, lNameBox.Text, usernameBox.Text, passwordBox.Text });
+            else
+                MessageBox.Show("Please complete all fields before clicking enter.");
+        }
+
+        private void About_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Created by Matthew Bocharnikov and Greg Fairbanks\n\n" +
+                "Enter your information in each textbox. Select 'Save.'\n" +
+                "Select the number of days you'd like to search through and press 'Search.'\n" +
+                "If you are not on the Virginia Tech campus wifi, you must enable the Pulse Secure VPN.\n\n" +
+                "Not for resale or redistribution without permission.");
+        }
+
+        private void passwordBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fiveDayInc_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fNameBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AutomatedScheduler_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

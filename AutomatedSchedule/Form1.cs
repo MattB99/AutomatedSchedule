@@ -134,7 +134,6 @@ namespace AutomatedSchedule
 
                 //setup calendar
                 calendar.BoldedDates = scheduledDates;
-
                 //read in from raw data and input into calendar
                 formattedScheduleData = new String[elementCount];
                 for (int i = 0; i < elementCount; i++)

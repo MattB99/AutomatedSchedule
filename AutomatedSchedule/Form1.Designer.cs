@@ -283,9 +283,9 @@
             // 
             this.notepadView.Cursor = System.Windows.Forms.Cursors.Hand;
             this.notepadView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.notepadView.Location = new System.Drawing.Point(921, 361);
+            this.notepadView.Location = new System.Drawing.Point(741, 361);
             this.notepadView.Name = "notepadView";
-            this.notepadView.Size = new System.Drawing.Size(172, 45);
+            this.notepadView.Size = new System.Drawing.Size(352, 45);
             this.notepadView.TabIndex = 23;
             this.notepadView.Text = "Notepad";
             this.notepadView.UseVisualStyleBackColor = true;

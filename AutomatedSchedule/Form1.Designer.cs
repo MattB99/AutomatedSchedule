@@ -62,6 +62,7 @@
             this.getDataBtn.TabIndex = 0;
             this.getDataBtn.Text = "Search";
             this.getDataBtn.UseVisualStyleBackColor = false;
+            this.getDataBtn.Visible = false;
             this.getDataBtn.Click += new System.EventHandler(this.button1_Click);
             // 
             // usernameBox
@@ -91,6 +92,7 @@
             this.tenDayInc.TabStop = true;
             this.tenDayInc.Text = "10 Days";
             this.tenDayInc.UseVisualStyleBackColor = true;
+            this.tenDayInc.Visible = false;
             // 
             // twentyDayInc
             // 
@@ -103,6 +105,7 @@
             this.twentyDayInc.TabStop = true;
             this.twentyDayInc.Text = "20 Days";
             this.twentyDayInc.UseVisualStyleBackColor = true;
+            this.twentyDayInc.Visible = false;
             // 
             // thirtyDayInc
             // 
@@ -115,6 +118,7 @@
             this.thirtyDayInc.TabStop = true;
             this.thirtyDayInc.Text = "30 Days";
             this.thirtyDayInc.UseVisualStyleBackColor = true;
+            this.thirtyDayInc.Visible = false;
             // 
             // fNameBox
             // 
@@ -211,6 +215,7 @@
             this.fiveDayInc.TabStop = true;
             this.fiveDayInc.Text = "5 Days";
             this.fiveDayInc.UseVisualStyleBackColor = true;
+            this.fiveDayInc.Visible = false;
             this.fiveDayInc.CheckedChanged += new System.EventHandler(this.fiveDayInc_CheckedChanged);
             // 
             // calendar
@@ -232,6 +237,8 @@
             this.allShifts.TabIndex = 19;
             this.allShifts.Text = "View All Upcoming Shifts";
             this.allShifts.UseVisualStyleBackColor = true;
+            this.allShifts.Visible = false;
+            this.allShifts.Click += new System.EventHandler(this.allShifts_Click);
             // 
             // label6
             // 
@@ -271,7 +278,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1109, 434);
+            this.ClientSize = new System.Drawing.Size(1109, 427);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.selectedShift);
             this.Controls.Add(this.label6);

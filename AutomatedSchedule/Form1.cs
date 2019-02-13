@@ -22,6 +22,7 @@ namespace AutomatedSchedule
 
         private void button1_Click(object sender, EventArgs e)
         {
+            allShifts.Visible = true;
             string[] lines = System.IO.File.ReadAllLines(@"userData.txt");
             String fName = lines[0];
             String lName = lines[1];
@@ -53,12 +54,26 @@ namespace AutomatedSchedule
                 //THIS WRITES ON ONE FUCKING LINE
                 System.IO.File.WriteAllText(@"rawSchedule.txt", element.Text);
             }
+            /*    //BOLDS DATES ON CALENDAR
+            calendar.BoldedDates =
+new System.DateTime[] {new System.DateTime(2019, 2, 15, 0, 0, 0, 0),
+                       new System.DateTime(2019, 2, 18, 0, 0, 0, 0)
+                       new System.DateTime(2019, 2, 18, 0, 0, 0, 0)};
+            */
+            driver.Quit(); //Quits chrome and CMD
         }
 
         private void editUserDataBtn_Click(object sender, EventArgs e)
         {
             if (fNameBox.Text != "" && lNameBox.Text != "" && usernameBox.Text != "" && passwordBox.Text != "")
+            {
                 System.IO.File.WriteAllLines(@"userData.txt", new string[] { fNameBox.Text, lNameBox.Text, usernameBox.Text, passwordBox.Text });
+                fiveDayInc.Visible = true;
+                tenDayInc.Visible = true;
+                twentyDayInc.Visible = true;
+                thirtyDayInc.Visible = true;
+                getDataBtn.Visible = true;
+            }
             else
                 MessageBox.Show("Please complete all fields before clicking enter.");
         }
@@ -104,6 +119,11 @@ namespace AutomatedSchedule
         private void selectedShift_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void allShifts_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

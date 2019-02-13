@@ -223,6 +223,7 @@
             // calendar
             // 
             this.calendar.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.calendar.FirstDayOfWeek = System.Windows.Forms.Day.Sunday;
             this.calendar.Location = new System.Drawing.Point(394, 80);
             this.calendar.Name = "calendar";
             this.calendar.ShowTodayCircle = false;

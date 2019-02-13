@@ -85,7 +85,9 @@ new System.DateTime[] {new System.DateTime(2019, 2, 15, 0, 0, 0, 0),
             MessageBox.Show("Created by Matthew Bocharnikov and Greg Fairbanks\n\n" +
                 "Enter your information in each textbox. Select 'Save.'\n" +
                 "Select the number of days you'd like to search through and press 'Search.'\n" +
-                "If you are not on the Virginia Tech campus wifi, you must enable the Pulse Secure VPN.\n\n" +
+                "If you are not on the Virginia Tech campus wifi, you must enable the Pulse Secure VPN.\n" +
+                "Do not exit any windows. They will close automatically when the process is complete.\n" +
+                "Select a date on the calendar to view the shift for that day. Select the Excel or Notepad button to view all shifts.\n\n" +
                 "Not for resale or redistribution without permission.");
         }
 

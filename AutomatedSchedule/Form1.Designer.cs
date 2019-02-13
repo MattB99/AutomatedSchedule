@@ -44,6 +44,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.fiveDayInc = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // getDataBtn
@@ -76,7 +77,7 @@
             // tenDayInc
             // 
             this.tenDayInc.AutoSize = true;
-            this.tenDayInc.Location = new System.Drawing.Point(253, 67);
+            this.tenDayInc.Location = new System.Drawing.Point(253, 123);
             this.tenDayInc.Name = "tenDayInc";
             this.tenDayInc.Size = new System.Drawing.Size(92, 24);
             this.tenDayInc.TabIndex = 3;
@@ -87,7 +88,7 @@
             // twentyDayInc
             // 
             this.twentyDayInc.AutoSize = true;
-            this.twentyDayInc.Location = new System.Drawing.Point(253, 126);
+            this.twentyDayInc.Location = new System.Drawing.Point(253, 182);
             this.twentyDayInc.Name = "twentyDayInc";
             this.twentyDayInc.Size = new System.Drawing.Size(92, 24);
             this.twentyDayInc.TabIndex = 4;
@@ -98,7 +99,7 @@
             // thirtyDayInc
             // 
             this.thirtyDayInc.AutoSize = true;
-            this.thirtyDayInc.Location = new System.Drawing.Point(253, 180);
+            this.thirtyDayInc.Location = new System.Drawing.Point(253, 236);
             this.thirtyDayInc.Name = "thirtyDayInc";
             this.thirtyDayInc.Size = new System.Drawing.Size(92, 24);
             this.thirtyDayInc.TabIndex = 5;
@@ -112,6 +113,7 @@
             this.fNameBox.Name = "fNameBox";
             this.fNameBox.Size = new System.Drawing.Size(100, 26);
             this.fNameBox.TabIndex = 6;
+            this.fNameBox.TextChanged += new System.EventHandler(this.fNameBox_TextChanged);
             // 
             // lNameBox
             // 
@@ -187,12 +189,25 @@
             this.label4.TabIndex = 14;
             this.label4.Text = "Last Name";
             // 
+            // fiveDayInc
+            // 
+            this.fiveDayInc.AutoSize = true;
+            this.fiveDayInc.Location = new System.Drawing.Point(253, 70);
+            this.fiveDayInc.Name = "fiveDayInc";
+            this.fiveDayInc.Size = new System.Drawing.Size(83, 24);
+            this.fiveDayInc.TabIndex = 15;
+            this.fiveDayInc.TabStop = true;
+            this.fiveDayInc.Text = "5 Days";
+            this.fiveDayInc.UseVisualStyleBackColor = true;
+            this.fiveDayInc.CheckedChanged += new System.EventHandler(this.fiveDayInc_CheckedChanged);
+            // 
             // AutomatedScheduler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(396, 429);
+            this.Controls.Add(this.fiveDayInc);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -233,6 +248,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.RadioButton fiveDayInc;
     }
 }
 

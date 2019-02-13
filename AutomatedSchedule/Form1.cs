@@ -57,7 +57,10 @@ namespace AutomatedSchedule
 
         private void editUserDataBtn_Click(object sender, EventArgs e)
         {
-            System.IO.File.WriteAllLines(@"userData.txt", new string[]{fNameBox.Text, lNameBox.Text, usernameBox.Text, passwordBox.Text});
+            if (fNameBox.Text != "" && lNameBox.Text != "" && usernameBox.Text != "" && passwordBox.Text != "")
+                System.IO.File.WriteAllLines(@"userData.txt", new string[] { fNameBox.Text, lNameBox.Text, usernameBox.Text, passwordBox.Text });
+            else
+                MessageBox.Show("Please complete all fields before clicking enter.");
         }
 
         private void About_Click(object sender, EventArgs e)
@@ -66,6 +69,16 @@ namespace AutomatedSchedule
         }
 
         private void passwordBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fiveDayInc_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fNameBox_TextChanged(object sender, EventArgs e)
         {
 
         }

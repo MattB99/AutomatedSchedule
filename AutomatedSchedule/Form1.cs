@@ -22,7 +22,9 @@ namespace AutomatedSchedule
 
         private void button1_Click(object sender, EventArgs e)
         {
-            allShifts.Visible = true;
+            excelView.Visible = true;
+            notepadView.Visible = true;
+            label5.Visible = true;
             string[] lines = System.IO.File.ReadAllLines(@"userData.txt");
             String fName = lines[0];
             String lName = lines[1];
@@ -124,6 +126,11 @@ new System.DateTime[] {new System.DateTime(2019, 2, 15, 0, 0, 0, 0),
         private void allShifts_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

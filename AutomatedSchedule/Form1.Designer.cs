@@ -46,10 +46,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.fiveDayInc = new System.Windows.Forms.RadioButton();
             this.calendar = new System.Windows.Forms.MonthCalendar();
-            this.allShifts = new System.Windows.Forms.Button();
+            this.excelView = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.selectedShift = new System.Windows.Forms.RichTextBox();
+            this.notepadView = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // getDataBtn
@@ -227,18 +229,18 @@
             this.calendar.TabIndex = 16;
             this.calendar.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
             // 
-            // allShifts
+            // excelView
             // 
-            this.allShifts.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.allShifts.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.allShifts.Location = new System.Drawing.Point(394, 347);
-            this.allShifts.Name = "allShifts";
-            this.allShifts.Size = new System.Drawing.Size(699, 59);
-            this.allShifts.TabIndex = 19;
-            this.allShifts.Text = "View All Upcoming Shifts";
-            this.allShifts.UseVisualStyleBackColor = true;
-            this.allShifts.Visible = false;
-            this.allShifts.Click += new System.EventHandler(this.allShifts_Click);
+            this.excelView.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.excelView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.excelView.Location = new System.Drawing.Point(741, 361);
+            this.excelView.Name = "excelView";
+            this.excelView.Size = new System.Drawing.Size(172, 45);
+            this.excelView.TabIndex = 19;
+            this.excelView.Text = "Excel";
+            this.excelView.UseVisualStyleBackColor = true;
+            this.excelView.Visible = false;
+            this.excelView.Click += new System.EventHandler(this.allShifts_Click);
             // 
             // label6
             // 
@@ -273,16 +275,42 @@
             this.selectedShift.Text = "";
             this.selectedShift.TextChanged += new System.EventHandler(this.selectedShift_TextChanged);
             // 
+            // notepadView
+            // 
+            this.notepadView.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.notepadView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.notepadView.Location = new System.Drawing.Point(921, 361);
+            this.notepadView.Name = "notepadView";
+            this.notepadView.Size = new System.Drawing.Size(172, 45);
+            this.notepadView.TabIndex = 23;
+            this.notepadView.Text = "Notepad";
+            this.notepadView.UseVisualStyleBackColor = true;
+            this.notepadView.Visible = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(362, 368);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(364, 32);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "View All Upcoming Shifts:";
+            this.label5.Visible = false;
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
             // AutomatedScheduler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1109, 427);
+            this.ClientSize = new System.Drawing.Size(1109, 443);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.notepadView);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.selectedShift);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.allShifts);
+            this.Controls.Add(this.excelView);
             this.Controls.Add(this.calendar);
             this.Controls.Add(this.fiveDayInc);
             this.Controls.Add(this.label4);
@@ -328,10 +356,12 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RadioButton fiveDayInc;
         private System.Windows.Forms.MonthCalendar calendar;
-        private System.Windows.Forms.Button allShifts;
+        private System.Windows.Forms.Button excelView;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.RichTextBox selectedShift;
+        private System.Windows.Forms.Button notepadView;
+        private System.Windows.Forms.Label label5;
     }
 }
 

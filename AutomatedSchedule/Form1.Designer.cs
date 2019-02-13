@@ -76,7 +76,7 @@
             // tenDayInc
             // 
             this.tenDayInc.AutoSize = true;
-            this.tenDayInc.Location = new System.Drawing.Point(253, 70);
+            this.tenDayInc.Location = new System.Drawing.Point(253, 67);
             this.tenDayInc.Name = "tenDayInc";
             this.tenDayInc.Size = new System.Drawing.Size(92, 24);
             this.tenDayInc.TabIndex = 3;
@@ -87,7 +87,7 @@
             // twentyDayInc
             // 
             this.twentyDayInc.AutoSize = true;
-            this.twentyDayInc.Location = new System.Drawing.Point(253, 129);
+            this.twentyDayInc.Location = new System.Drawing.Point(253, 126);
             this.twentyDayInc.Name = "twentyDayInc";
             this.twentyDayInc.Size = new System.Drawing.Size(92, 24);
             this.twentyDayInc.TabIndex = 4;
@@ -98,7 +98,7 @@
             // thirtyDayInc
             // 
             this.thirtyDayInc.AutoSize = true;
-            this.thirtyDayInc.Location = new System.Drawing.Point(253, 183);
+            this.thirtyDayInc.Location = new System.Drawing.Point(253, 180);
             this.thirtyDayInc.Name = "thirtyDayInc";
             this.thirtyDayInc.Size = new System.Drawing.Size(92, 24);
             this.thirtyDayInc.TabIndex = 5;

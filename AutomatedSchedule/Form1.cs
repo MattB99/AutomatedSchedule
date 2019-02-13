@@ -96,8 +96,12 @@ namespace AutomatedSchedule
         {
 
         }
+        private void label7_Click(object sender, EventArgs e)
+        {
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        }
+
+        private void selectedShift_TextChanged(object sender, EventArgs e)
         {
 
         }

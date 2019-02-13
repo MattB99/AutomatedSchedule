@@ -46,10 +46,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.fiveDayInc = new System.Windows.Forms.RadioButton();
             this.calendar = new System.Windows.Forms.MonthCalendar();
-            this.nextShift = new System.Windows.Forms.RichTextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.allShifts = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.selectedShift = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // getDataBtn
@@ -156,9 +156,9 @@
             // About
             // 
             this.About.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.About.Location = new System.Drawing.Point(197, 359);
+            this.About.Location = new System.Drawing.Point(119, 347);
             this.About.Name = "About";
-            this.About.Size = new System.Drawing.Size(75, 45);
+            this.About.Size = new System.Drawing.Size(234, 59);
             this.About.TabIndex = 10;
             this.About.Text = "About";
             this.About.UseVisualStyleBackColor = true;
@@ -222,35 +222,13 @@
             this.calendar.TabIndex = 16;
             this.calendar.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
             // 
-            // nextShift
-            // 
-            this.nextShift.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.nextShift.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nextShift.Location = new System.Drawing.Point(737, 80);
-            this.nextShift.Name = "nextShift";
-            this.nextShift.ReadOnly = true;
-            this.nextShift.Size = new System.Drawing.Size(338, 252);
-            this.nextShift.TabIndex = 17;
-            this.nextShift.Text = "";
-            this.nextShift.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(732, 48);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(194, 29);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Your Next Shift:";
-            // 
             // allShifts
             // 
             this.allShifts.Cursor = System.Windows.Forms.Cursors.Hand;
             this.allShifts.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.allShifts.Location = new System.Drawing.Point(392, 345);
+            this.allShifts.Location = new System.Drawing.Point(394, 347);
             this.allShifts.Name = "allShifts";
-            this.allShifts.Size = new System.Drawing.Size(681, 59);
+            this.allShifts.Size = new System.Drawing.Size(699, 59);
             this.allShifts.TabIndex = 19;
             this.allShifts.Text = "View All Upcoming Shifts";
             this.allShifts.UseVisualStyleBackColor = true;
@@ -265,16 +243,39 @@
             this.label6.TabIndex = 20;
             this.label6.Text = "Bold Dates are Scheduled Shifts";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(730, 48);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(183, 29);
+            this.label7.TabIndex = 22;
+            this.label7.Text = "Selected Shift:";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // selectedShift
+            // 
+            this.selectedShift.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.selectedShift.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selectedShift.Location = new System.Drawing.Point(735, 80);
+            this.selectedShift.Name = "selectedShift";
+            this.selectedShift.ReadOnly = true;
+            this.selectedShift.Size = new System.Drawing.Size(358, 252);
+            this.selectedShift.TabIndex = 21;
+            this.selectedShift.Text = "";
+            this.selectedShift.TextChanged += new System.EventHandler(this.selectedShift_TextChanged);
+            // 
             // AutomatedScheduler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1087, 417);
+            this.ClientSize = new System.Drawing.Size(1109, 434);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.selectedShift);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.allShifts);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.nextShift);
             this.Controls.Add(this.calendar);
             this.Controls.Add(this.fiveDayInc);
             this.Controls.Add(this.label4);
@@ -320,10 +321,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RadioButton fiveDayInc;
         private System.Windows.Forms.MonthCalendar calendar;
-        private System.Windows.Forms.RichTextBox nextShift;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button allShifts;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.RichTextBox selectedShift;
     }
 }
 

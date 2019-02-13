@@ -67,7 +67,8 @@ namespace AutomatedSchedule
         {
             MessageBox.Show("Created by Matthew Bocharnikov and Greg Fairbanks\n\n" +
                 "Enter your information in each textbox. Select 'Save.'\n" +
-                "Select the number of days you'd like to search through and press 'Search.'\n\n" +
+                "Select the number of days you'd like to search through and press 'Search.'\n" +
+                "If you are not on the Virginia Tech campus wifi, you must enable the Pulse Secure VPN.\n\n" +
                 "Not for resale or redistribution without permission.");
         }
 
@@ -82,6 +83,21 @@ namespace AutomatedSchedule
         }
 
         private void fNameBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AutomatedScheduler_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

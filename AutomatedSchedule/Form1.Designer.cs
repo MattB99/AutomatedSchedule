@@ -129,7 +129,7 @@
             this.editUserDataBtn.Name = "editUserDataBtn";
             this.editUserDataBtn.Size = new System.Drawing.Size(100, 42);
             this.editUserDataBtn.TabIndex = 8;
-            this.editUserDataBtn.Text = "Enter";
+            this.editUserDataBtn.Text = "Save";
             this.editUserDataBtn.UseVisualStyleBackColor = false;
             this.editUserDataBtn.Click += new System.EventHandler(this.editUserDataBtn_Click);
             // 

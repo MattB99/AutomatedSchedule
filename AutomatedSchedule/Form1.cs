@@ -65,7 +65,10 @@ namespace AutomatedSchedule
 
         private void About_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Created by Matthew Bocharnikov and Greg Fairbanks\nNot for resale or redistribution without permission.");
+            MessageBox.Show("Created by Matthew Bocharnikov and Greg Fairbanks\n\n" +
+                "Enter your information in each textbox. Select 'Save.'\n" +
+                "Select the number of days you'd like to search through and press 'Search.'\n\n" +
+                "Not for resale or redistribution without permission.");
         }
 
         private void passwordBox_TextChanged(object sender, EventArgs e)

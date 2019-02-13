@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutomatedScheduler));
             this.getDataBtn = new System.Windows.Forms.Button();
             this.usernameBox = new System.Windows.Forms.TextBox();
@@ -52,6 +53,7 @@
             this.selectedShift = new System.Windows.Forms.RichTextBox();
             this.notepadView = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // getDataBtn
@@ -364,6 +366,7 @@
         private System.Windows.Forms.RichTextBox selectedShift;
         private System.Windows.Forms.Button notepadView;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

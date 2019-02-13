@@ -35,127 +35,135 @@ namespace AutomatedSchedule
 
         private void button1_Click(object sender, EventArgs e)
         {
-            excelView.Visible = true;
-            notepadView.Visible = true;
-            label5.Visible = true;
-            lines = System.IO.File.ReadAllLines(@"userData.txt");
-            String fName = lines[0];
-            String lName = lines[1];
-            IWebDriver driver = new ChromeDriver();
-            driver.Url = "http://172.21.20.41/cepdotnet/CEPloginToCEP.aspx";
-
-            IWebElement username = driver.FindElement(By.Id("txtUserName"));
-            IWebElement password = driver.FindElement(By.Id("txtPassword"));
-
-            username.Clear();
-            username.SendKeys(lines[2]);
-
-            password.Clear();
-            password.SendKeys(lines[3]);
-
-            IWebElement lgnBtn = driver.FindElement(By.Id("sbtLogin"));
-            lgnBtn.Click();
-
-            File.WriteAllText(@"rawSchedule.txt", "");
-            ReadOnlyCollection<IWebElement> elements;
-            elementCount = 0;
-
-            int cMonth = DateTime.Now.Month, cDay = DateTime.Now.Day, cYear = DateTime.Now.Year, dateCounter = 0, scheduledDatesIndex = 0; ;
-            if (fiveDayInc.Checked)
-                dateCounter = 5;
-            else if (tenDayInc.Checked)
-                dateCounter = 10;
-            else if (twentyDayInc.Checked)
-                dateCounter = 20;
-            else if (thirtyDayInc.Checked)
-                dateCounter = 30;
-
-            elementNumPerDate = new int[dateCounter];
-            System.DateTime[] scheduledDates = new System.DateTime[dateCounter];
-
-            for(int i = dateCounter; i > 0; i--)
+            if (fiveDayInc.Checked == false && tenDayInc.Checked == false && twentyDayInc.Checked == false && thirtyDayInc.Checked == false)
             {
-                driver.Url = "http://172.21.20.41/cepdotnet/CEPHome.aspx?day=" + cDay + "&month=" + cMonth + "&year=" + cYear;
+                MessageBox.Show("Please select the number of days you'd like to search through.");
+            }
+            else
+            {
+                excelView.Visible = true;
+                notepadView.Visible = true;
+                label5.Visible = true;
+                lines = System.IO.File.ReadAllLines(@"userData.txt");
+                String fName = lines[0];
+                String lName = lines[1];
+                IWebDriver driver = new ChromeDriver();
+                driver.Url = "http://172.21.20.41/cepdotnet/CEPloginToCEP.aspx";
 
-                elements = driver.FindElements(By.XPath("//*[contains(text(), '" + fName + "') and contains(text(), '" + lName + "')]/ancestor::tbody[1]"));
+                IWebElement username = driver.FindElement(By.Id("txtUserName"));
+                IWebElement password = driver.FindElement(By.Id("txtPassword"));
 
-                try {
-                    if (elements[0] != null)
+                username.Clear();
+                username.SendKeys(lines[2]);
+
+                password.Clear();
+                password.SendKeys(lines[3]);
+
+                IWebElement lgnBtn = driver.FindElement(By.Id("sbtLogin"));
+                lgnBtn.Click();
+
+                File.WriteAllText(@"rawSchedule.txt", "");
+                ReadOnlyCollection<IWebElement> elements;
+                elementCount = 0;
+
+                int cMonth = DateTime.Now.Month, cDay = DateTime.Now.Day, cYear = DateTime.Now.Year, dateCounter = 0, scheduledDatesIndex = 0; ;
+                if (fiveDayInc.Checked)
+                    dateCounter = 5;
+                else if (tenDayInc.Checked)
+                    dateCounter = 10;
+                else if (twentyDayInc.Checked)
+                    dateCounter = 20;
+                else if (thirtyDayInc.Checked)
+                    dateCounter = 30;
+
+                elementNumPerDate = new int[dateCounter];
+                System.DateTime[] scheduledDates = new System.DateTime[dateCounter];
+
+                for (int i = dateCounter; i > 0; i--)
+                {
+                    driver.Url = "http://172.21.20.41/cepdotnet/CEPHome.aspx?day=" + cDay + "&month=" + cMonth + "&year=" + cYear;
+
+                    elements = driver.FindElements(By.XPath("//*[contains(text(), '" + fName + "') and contains(text(), '" + lName + "')]/ancestor::tbody[1]"));
+
+                    try
                     {
-                        scheduledDates[scheduledDatesIndex] = new System.DateTime(cYear, cMonth, cDay, 0, 0, 0, 0);
-                        scheduledDatesIndex++;
+                        if (elements[0] != null)
+                        {
+                            scheduledDates[scheduledDatesIndex] = new System.DateTime(cYear, cMonth, cDay, 0, 0, 0, 0);
+                            scheduledDatesIndex++;
+                        }
                     }
-                }
-                catch(Exception)
-                {
-                    //do nothing when no elements
-                }
-
-                currElementCount = 0;
-                foreach (IWebElement element in elements)
-                { 
-                    File.AppendAllText(@"rawSchedule.txt", element.Text + Environment.NewLine + "*" + Environment.NewLine);
-                    elementCount++;
-                    currElementCount++;
-                }
-
-                try
-                {
-                    elementNumPerDate[scheduledDatesIndex - 1] = currElementCount;
-                }
-                catch(Exception)
-                {
-                    //don't store any values if exception
-                }
-                
-
-                cDay++;
-                int daysInMonth = System.DateTime.DaysInMonth(cYear, cMonth);
-                if (cDay > daysInMonth)
-                {
-                    cDay = 1;
-                    cMonth++;
-                    if (cMonth > 12)
+                    catch (Exception)
                     {
-                        cMonth = 1;
-                        cYear++;
+                        //do nothing when no elements
                     }
 
+                    currElementCount = 0;
+                    foreach (IWebElement element in elements)
+                    {
+                        File.AppendAllText(@"rawSchedule.txt", element.Text + Environment.NewLine + "*" + Environment.NewLine);
+                        elementCount++;
+                        currElementCount++;
+                    }
+
+                    try
+                    {
+                        elementNumPerDate[scheduledDatesIndex - 1] = currElementCount;
+                    }
+                    catch (Exception)
+                    {
+                        //don't store any values if exception
+                    }
+
+
+                    cDay++;
+                    int daysInMonth = System.DateTime.DaysInMonth(cYear, cMonth);
+                    if (cDay > daysInMonth)
+                    {
+                        cDay = 1;
+                        cMonth++;
+                        if (cMonth > 12)
+                        {
+                            cMonth = 1;
+                            cYear++;
+                        }
+
+                    }
                 }
-            }
 
-            //setup calendar
-            calendar.BoldedDates = scheduledDates;
+                //setup calendar
+                calendar.BoldedDates = scheduledDates;
 
-            //read in from raw data and input into calendar
-            formattedScheduleData = new String[elementCount];
-            for(int i = 0; i < elementCount; i++)
-            {
-                //populate each value
-                formattedScheduleData[i] = "";
-            }
-
-            tempScheduleAry = System.IO.File.ReadAllLines(@"rawSchedule.txt");
-            formattedScheduleData = new string[tempScheduleAry.Length];
-            int formattedIndex = 0;
-            for (int tempIndex = 0; tempIndex < tempScheduleAry.Length; tempIndex++)
-            {
-                if (tempScheduleAry[tempIndex].Equals("*"))
+                //read in from raw data and input into calendar
+                formattedScheduleData = new String[elementCount];
+                for (int i = 0; i < elementCount; i++)
                 {
-                    formattedScheduleData[formattedIndex] = "\n";
-                    formattedIndex++;
-                    formattedScheduleData[formattedIndex] = "\n";
-                    formattedIndex++;
+                    //populate each value
+                    formattedScheduleData[i] = "";
                 }
-                else if (!tempScheduleAry[tempIndex].Contains("Scheduled Employees Start Time End Time"))
+
+                tempScheduleAry = System.IO.File.ReadAllLines(@"rawSchedule.txt");
+                formattedScheduleData = new string[tempScheduleAry.Length];
+                int formattedIndex = 0;
+                for (int tempIndex = 0; tempIndex < tempScheduleAry.Length; tempIndex++)
                 {
-                    formattedScheduleData[formattedIndex] = tempScheduleAry[tempIndex].Trim();
-                    formattedIndex++;
+                    if (tempScheduleAry[tempIndex].Equals("*"))
+                    {
+                        formattedScheduleData[formattedIndex] = "\n";
+                        formattedIndex++;
+                        formattedScheduleData[formattedIndex] = "\n";
+                        formattedIndex++;
+                    }
+                    else if (!tempScheduleAry[tempIndex].Contains("Scheduled Employees Start Time End Time"))
+                    {
+                        formattedScheduleData[formattedIndex] = tempScheduleAry[tempIndex].Trim();
+                        formattedIndex++;
+                    }
+
                 }
 
+                driver.Quit(); //Quits chrome and CMD
             }
-
-            driver.Quit(); //Quits chrome and CMD
         }
 
         private void editUserDataBtn_Click(object sender, EventArgs e)
@@ -205,6 +213,13 @@ namespace AutomatedSchedule
             lNameBox.TabIndex = 2;
             usernameBox.TabIndex = 3;
             passwordBox.TabIndex = 4;
+
+            ToolTip toolTip1 = new ToolTip();
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 1000;
+            toolTip1.ReshowDelay = 500;
+            toolTip1.ShowAlways = true;
+            toolTip1.SetToolTip(this.calendar, "Select a bolded day to view a shift.");
 
         }
 

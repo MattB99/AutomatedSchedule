@@ -41,10 +41,10 @@ namespace AutomatedSchedule
             lgnBtn.Click();
 
             int cMonth = DateTime.Now.Month, cDay = DateTime.Now.Day, cYear = DateTime.Now.Year;
+            
 
 
-
-            driver.Url = "http://172.21.20.41/cepdotnet/CEPHome.aspx?day=11&month=2&year=2019";
+            driver.Url = "http://172.21.20.41/cepdotnet/CEPHome.aspx?day=12&month=2&year=2019";
 
             ReadOnlyCollection<IWebElement> elements = driver.FindElements(By.XPath("//*[contains(text(), '" + fName + "') and contains(text(), '" + lName + "')]/ancestor::tbody[1]"));
 

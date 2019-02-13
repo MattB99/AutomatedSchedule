@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace AutomatedSchedule
 {
@@ -288,8 +289,8 @@ namespace AutomatedSchedule
         }
 
         private void notepadView_Click(object sender, EventArgs e)
-        {
-            
+        { 
+            Process.Start(@"rawSchedule.txt");
             File.WriteAllLines(@"notepadExportSchedule.txt", formattedScheduleData);
             Console.WriteLine(tempScheduleAry.Length);
         }

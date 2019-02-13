@@ -54,6 +54,7 @@
             this.notepadView = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.iCalCreater = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // getDataBtn
@@ -305,6 +306,16 @@
             this.label5.Visible = false;
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
+            // iCalCreater
+            // 
+            this.iCalCreater.Location = new System.Drawing.Point(368, 415);
+            this.iCalCreater.Name = "iCalCreater";
+            this.iCalCreater.Size = new System.Drawing.Size(352, 45);
+            this.iCalCreater.TabIndex = 25;
+            this.iCalCreater.Text = "Create Calendar File from Selected Shift";
+            this.iCalCreater.UseVisualStyleBackColor = true;
+            this.iCalCreater.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // AutomatedScheduler
             // 
             this.AccessibleDescription = "Schedule searcher for Virginia Tech\'s Production Services CEP interace.";
@@ -312,7 +323,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1109, 423);
+            this.ClientSize = new System.Drawing.Size(1109, 470);
+            this.Controls.Add(this.iCalCreater);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.notepadView);
             this.Controls.Add(this.label7);
@@ -371,6 +383,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.MonthCalendar calendar;
+        private System.Windows.Forms.Button iCalCreater;
     }
 }
 

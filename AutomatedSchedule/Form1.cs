@@ -188,7 +188,8 @@ namespace AutomatedSchedule
                 "Select the number of days you'd like to search through and press 'Search.'\n" +
                 "If you are not on the Virginia Tech campus wifi, you must enable the Pulse Secure VPN.\n" +
                 "Do not exit any windows. They will close automatically when the process is complete.\n" +
-                "Select a date on the calendar to view the shift for that day. Select the Excel or Notepad button to view all shifts.\n\n" +
+                "Select a date on the calendar to view the shift for that day. Select the Excel or Notepad button to view all shifts.\n" +
+                "This program is not a substitute for double checking your shifts. We are not responsible if the software malfunctions\n\n" +
                 "Not for resale or redistribution without permission.");
         }
 
@@ -290,6 +291,83 @@ namespace AutomatedSchedule
         private void Title_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            using (FileStream fileStream = File.Create("currentEvent.ics"))
+            using (StreamWriter writer = new StreamWriter(fileStream))
+            {
+                int boxLocation = selectedShift.Find(lNameBox.Text);
+                string lineText = selectedShift.Lines[selectedShift.GetLineFromCharIndex(boxLocation)];
+                int length1 = fNameBox.TextLength;
+                int length2 = lNameBox.TextLength;
+                lineText = lineText.Substring(length1 + length2 + 2);
+                string[] time = lineText.Split(' ');
+                bool datechecker = false;
+                int counter = 0;
+                foreach (string time1 in time)
+                {
+                    time[counter] = time1.Replace(":", "");
+                    counter++;
+                }
+                counter = 0;
+                foreach (string time2 in time)
+                {
+                    if (time2 == "NOON")
+                        time[counter] = "1200";
+                    if (time2 == "MIDNIGHT")
+                        time[counter] = "2400";
+                    if (time2 == "PM")
+                    {
+                        if (time[counter - 1].Contains("12") == false)
+                            time[counter - 1] = Convert.ToString(Convert.ToInt32(time[counter - 1]) + 1200);
+                    }
+                        counter++;
+                }
+                    if (time[1] == "MIDNIGHT" || time[2] == "MIDNIGHT" || time[3] == "MIDNIGHT" || (time[2] == "AM" && Convert.ToInt32(time[2]) < Convert.ToInt32(time[0])) || (time[3] == "AM" && Convert.ToInt32(time[2]) < Convert.ToInt32(time[0])))
+                    {
+                        datechecker = true;
+                    }
+                counter = 0;
+                int counter2 = 0;
+                string[] startandend = new string[2];
+                foreach (string time3 in time)
+                {
+                    if (time3.Length < 4 && time3 != "PM" && time3 != "AM")
+                    {
+                        time[counter] = "0" + time3;
+                        startandend[counter2] = time[counter];
+                        counter2++;
+                    }
+                    else if(time3 != "PM" && time3 != "AM")
+                    {
+                        startandend[counter2] = time[counter];
+                        counter2++;
+                    }
+                    counter++;
+                }
+                startandend[0] = Convert.ToString(Convert.ToInt32(startandend[0]) + 500);
+                startandend[1] = Convert.ToString(Convert.ToInt32(startandend[1]) + 500);
+                writer.WriteLine("BEGIN:VCALENDAR");
+                writer.WriteLine("CALSCALE:GREGORIAN");
+                writer.WriteLine("METHOD:PUBLISH");
+                writer.WriteLine("X-WR-TIMEZONE:America/New_York");
+                writer.WriteLine("BEGIN:VEVENT");
+                writer.WriteLine("DTSTART:" + calendar.SelectionStart.ToString("yyyyMMdd") + "T" + startandend[0] + "00Z");
+                if(datechecker == false)
+                    writer.WriteLine("DTEND:" + calendar.SelectionStart.ToString("yyyyMMdd") + "T"  + startandend[1] + "00Z");
+                else
+                    writer.WriteLine("DTEND:" + Convert.ToString(Convert.ToInt32(calendar.SelectionStart.ToString("yyyyMMdd")) + 1) + "T" + startandend[1] + "00Z");
+                writer.WriteLine("DESCRIPTION:" + selectedShift.Lines[1] + "\\n" + selectedShift.Lines[2] + "\\n" +selectedShift.Lines[3] + "\\n" + selectedShift.Lines[4]);
+                writer.WriteLine("LOCATION:");
+                writer.WriteLine("STATUS:CONFIRMED");
+                writer.WriteLine("SUMMARY:" + selectedShift.Lines[0]);
+                writer.WriteLine("END:VEVENT");
+                writer.WriteLine("END:VCALENDAR");
+            }
         }
 
         private void notepadView_Click(object sender, EventArgs e)

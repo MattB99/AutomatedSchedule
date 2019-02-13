@@ -287,6 +287,7 @@
             this.notepadView.Text = "Notepad";
             this.notepadView.UseVisualStyleBackColor = true;
             this.notepadView.Visible = false;
+            this.notepadView.Click += new System.EventHandler(this.notepadView_Click);
             // 
             // label5
             // 

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,9 +16,21 @@ namespace AutomatedSchedule
 {
     public partial class AutomatedScheduler : Form
     {
+        String[] lines, formattedScheduleData, tempScheduleAry;
+        int[] elementNumPerDate;
+        int elementCount, currElementCount;
         public AutomatedScheduler()
         {
             InitializeComponent();
+            lines = System.IO.File.ReadAllLines(@"userData.txt");
+            if(lines[0] != null)
+                fNameBox.Text = lines[0];
+            if (lines[1] != null)
+                lNameBox.Text = lines[1];
+            if (lines[2] != null)
+                usernameBox.Text = lines[2];
+            if (lines[3] != null)
+                passwordBox.Text = lines[3];
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -25,7 +38,7 @@ namespace AutomatedSchedule
             excelView.Visible = true;
             notepadView.Visible = true;
             label5.Visible = true;
-            string[] lines = System.IO.File.ReadAllLines(@"userData.txt");
+            lines = System.IO.File.ReadAllLines(@"userData.txt");
             String fName = lines[0];
             String lName = lines[1];
             IWebDriver driver = new ChromeDriver();
@@ -43,25 +56,105 @@ namespace AutomatedSchedule
             IWebElement lgnBtn = driver.FindElement(By.Id("sbtLogin"));
             lgnBtn.Click();
 
-            int cMonth = DateTime.Now.Month, cDay = DateTime.Now.Day, cYear = DateTime.Now.Year;
-            
+            File.WriteAllText(@"rawSchedule.txt", "");
+            ReadOnlyCollection<IWebElement> elements;
+            elementCount = 0;
 
+            int cMonth = DateTime.Now.Month, cDay = DateTime.Now.Day, cYear = DateTime.Now.Year, dateCounter = 0, scheduledDatesIndex = 0; ;
+            if (fiveDayInc.Checked)
+                dateCounter = 5;
+            else if (tenDayInc.Checked)
+                dateCounter = 10;
+            else if (twentyDayInc.Checked)
+                dateCounter = 20;
+            else if (thirtyDayInc.Checked)
+                dateCounter = 30;
 
-            driver.Url = "http://172.21.20.41/cepdotnet/CEPHome.aspx?day=12&month=2&year=2019";
+            elementNumPerDate = new int[dateCounter];
+            System.DateTime[] scheduledDates = new System.DateTime[dateCounter];
 
-            ReadOnlyCollection<IWebElement> elements = driver.FindElements(By.XPath("//*[contains(text(), '" + fName + "') and contains(text(), '" + lName + "')]/ancestor::tbody[1]"));
-
-            foreach (IWebElement element in elements)
+            for(int i = dateCounter; i > 0; i--)
             {
-                //THIS WRITES ON ONE FUCKING LINE
-                System.IO.File.WriteAllText(@"rawSchedule.txt", element.Text);
+                driver.Url = "http://172.21.20.41/cepdotnet/CEPHome.aspx?day=" + cDay + "&month=" + cMonth + "&year=" + cYear;
+
+                elements = driver.FindElements(By.XPath("//*[contains(text(), '" + fName + "') and contains(text(), '" + lName + "')]/ancestor::tbody[1]"));
+
+                try {
+                    if (elements[0] != null)
+                    {
+                        scheduledDates[scheduledDatesIndex] = new System.DateTime(cYear, cMonth, cDay, 0, 0, 0, 0);
+                        scheduledDatesIndex++;
+                    }
+                }
+                catch(Exception)
+                {
+                    //do nothing when no elements
+                }
+
+                currElementCount = 0;
+                foreach (IWebElement element in elements)
+                { 
+                    File.AppendAllText(@"rawSchedule.txt", element.Text + Environment.NewLine + "*" + Environment.NewLine);
+                    elementCount++;
+                    currElementCount++;
+                }
+
+                try
+                {
+                    elementNumPerDate[scheduledDatesIndex - 1] = currElementCount;
+                }
+                catch(Exception)
+                {
+                    //don't store any values if exception
+                }
+                
+
+                cDay++;
+                int daysInMonth = System.DateTime.DaysInMonth(cYear, cMonth);
+                if (cDay > daysInMonth)
+                {
+                    cDay = 1;
+                    cMonth++;
+                    if (cMonth > 12)
+                    {
+                        cMonth = 1;
+                        cYear++;
+                    }
+
+                }
             }
-            /*    //BOLDS DATES ON CALENDAR
-            calendar.BoldedDates =
-new System.DateTime[] {new System.DateTime(2019, 2, 15, 0, 0, 0, 0),
-                       new System.DateTime(2019, 2, 18, 0, 0, 0, 0)
-                       new System.DateTime(2019, 2, 18, 0, 0, 0, 0)};
-            */
+
+            //setup calendar
+            calendar.BoldedDates = scheduledDates;
+
+            //read in from raw data and input into calendar
+            formattedScheduleData = new String[elementCount];
+            for(int i = 0; i < elementCount; i++)
+            {
+                //populate each value
+                formattedScheduleData[i] = "";
+            }
+
+            tempScheduleAry = System.IO.File.ReadAllLines(@"rawSchedule.txt");
+            formattedScheduleData = new string[tempScheduleAry.Length];
+            int formattedIndex = 0;
+            for (int tempIndex = 0; tempIndex < tempScheduleAry.Length; tempIndex++)
+            {
+                if (tempScheduleAry[tempIndex].Equals("*"))
+                {
+                    formattedScheduleData[formattedIndex] = "\n";
+                    formattedIndex++;
+                    formattedScheduleData[formattedIndex] = "\n";
+                    formattedIndex++;
+                }
+                else if (!tempScheduleAry[tempIndex].Contains("Scheduled Employees Start Time End Time"))
+                {
+                    formattedScheduleData[formattedIndex] = tempScheduleAry[tempIndex].Trim();
+                    formattedIndex++;
+                }
+
+            }
+
             driver.Quit(); //Quits chrome and CMD
         }
 
@@ -118,6 +211,56 @@ new System.DateTime[] {new System.DateTime(2019, 2, 15, 0, 0, 0, 0),
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
 
+            try
+            {
+                //makes array of maximum length needed
+                String[] tempAry = new String[formattedScheduleData.Length];
+                String dateString = calendar.SelectionRange.Start.ToLongDateString();
+                String dayString = dateString.Substring(0, dateString.IndexOf(','));
+                String otherDateString = dateString.Substring(dateString.IndexOf(' ') + 1);
+                for (int i = 1; i < formattedScheduleData.Length; i++)
+                {
+                    if (formattedScheduleData[i].Contains(otherDateString))
+                    {
+                        int k = i - 1;
+                        while(!formattedScheduleData[k].Equals("\n"))
+                        {
+                            tempAry[k] = formattedScheduleData[k];
+                            k++;
+                        }
+                        tempAry[k] = formattedScheduleData[k];
+                        k++;
+                        tempAry[k] = formattedScheduleData[k];
+                        i = k;
+                    }
+                }
+                //String finalString = string.Join("\n", tempAry);
+                String finalString = String.Join("\n", tempAry.Where(s => !string.IsNullOrEmpty(s)));
+
+
+                int indexOfLastNewLine = 0;
+                int lastI = 0;
+                for(int i = 0; i < finalString.Length; i++)
+                {
+                    if (!finalString.Substring(i, i + 1).Equals("\n"))
+                    {
+                        indexOfLastNewLine = i;
+                        break;
+                    }
+                    lastI = i;
+
+                }
+                if(lastI == finalString.Length)
+                    selectedShift.Text = "NO SHIFTS ON THIS DAY";
+                else
+                    selectedShift.Text = finalString.Substring(indexOfLastNewLine);
+            }
+            
+            catch(Exception)
+            {
+                selectedShift.Text = "NO SHIFTS ON THIS DAY";
+            }
+            
         }
         private void label7_Click(object sender, EventArgs e)
         {
@@ -126,6 +269,14 @@ new System.DateTime[] {new System.DateTime(2019, 2, 15, 0, 0, 0, 0),
 
         private void selectedShift_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void notepadView_Click(object sender, EventArgs e)
+        {
+            
+            File.WriteAllLines(@"notepadExportSchedule.txt", formattedScheduleData);
+            Console.WriteLine(tempScheduleAry.Length);
 
         }
 

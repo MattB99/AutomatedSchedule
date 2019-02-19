@@ -12,17 +12,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace AutomatedSchedule
 {
     public partial class AutomatedScheduler : Form
     {
-        String[] lines, formattedScheduleData, tempScheduleAry;
-        int[] elementNumPerDate;
-        int elementCount, currElementCount;
+        //declares List of jobs
+        List<Job> jobs;
+
+        String[] lines;
+
         public AutomatedScheduler()
         {
             InitializeComponent();
+
+            //initializes list of jobs
+            jobs = new List<Job>();
+
             lines = System.IO.File.ReadAllLines(@"userData.txt");
             if(lines[0] != null)
                 fNameBox.Text = lines[0];
@@ -63,9 +70,7 @@ namespace AutomatedSchedule
                 IWebElement lgnBtn = driver.FindElement(By.Id("sbtLogin"));
                 lgnBtn.Click();
 
-                File.WriteAllText(@"rawSchedule.txt", "");
                 ReadOnlyCollection<IWebElement> elements;
-                elementCount = 0;
 
                 int cMonth = DateTime.Now.Month, cDay = DateTime.Now.Day, cYear = DateTime.Now.Year, dateCounter = 0, scheduledDatesIndex = 0; ;
                 if (fiveDayInc.Checked)
@@ -77,11 +82,20 @@ namespace AutomatedSchedule
                 else if (thirtyDayInc.Checked)
                     dateCounter = 30;
 
-                elementNumPerDate = new int[dateCounter];
+               
                 System.DateTime[] scheduledDates = new System.DateTime[dateCounter];
+
+                String[] tempElementArray = null, tempStringDateTime;
+                String tempJobName;
+                bool tempCancelled = false;
+                int tempHour, indexChange, tempMin, tempMonth;
+                Job tempJob = null;
+                Person tempPerson = null;
 
                 for (int i = dateCounter; i > 0; i--)
                 {
+                    
+
                     driver.Url = "http://172.21.20.41/cepdotnet/CEPHome.aspx?day=" + cDay + "&month=" + cMonth + "&year=" + cYear;
 
                     elements = driver.FindElements(By.XPath("//*[contains(text(), '" + fName + "') and contains(text(), '" + lName + "')]/ancestor::tbody[1]"));
@@ -96,25 +110,201 @@ namespace AutomatedSchedule
                     }
                     catch (Exception)
                     {
-                        //do nothing when no elements
+                        tempElementArray = null;
                     }
 
-                    currElementCount = 0;
+
+                    tempJob = null;
                     foreach (IWebElement element in elements)
                     {
-                        File.AppendAllText(@"rawSchedule.txt", element.Text + Environment.NewLine + "*" + Environment.NewLine);
-                        elementCount++;
-                        currElementCount++;
-                    }
+                
+                        
+                        //for midnight and noon time
+                        indexChange = 0;
 
-                    try
-                    {
-                        elementNumPerDate[scheduledDatesIndex - 1] = currElementCount;
+                        //split job into array of String values
+                        tempElementArray = element.Text.Split(new char[] {'\n'});
+
+                        //analyze name
+                        if (tempElementArray[0].Contains("CANCELLED"))
+                        {
+                            tempJobName = tempElementArray[0].Substring(0, tempElementArray[0].IndexOf("CANCELLED"));
+                            tempCancelled = true;
+                        }
+                        else
+                        {
+                            tempJobName = tempElementArray[0];
+                            tempCancelled = false;
+                        }
+
+                        //analyze datetime of job
+                        tempStringDateTime = tempElementArray[1].Trim().Split(new char[]{' '});
+
+                        //analyze time
+                        if (tempStringDateTime[0].Equals("NOON"))
+                        {
+                            indexChange = 1;
+                            tempHour = 12;
+                            tempMin = 0;
+
+                        }
+                        else if (tempStringDateTime[0].Equals("MIDNIGHT"))
+                        {
+                            indexChange = 1;
+                            tempHour = 0;
+                            tempMin = 0;
+                        }
+                        else
+                        {
+
+
+                            tempHour = int.Parse(tempStringDateTime[0].Substring(0, tempStringDateTime[0].IndexOf(":")));
+                            if (tempStringDateTime[1].Equals("PM"))
+                            {
+                                tempHour += 12;
+
+                                //this is more for rare errors in code analyis it is barely used
+                                if (tempHour >= 24)
+                                {
+                                    tempHour -= 24;
+                                }
+                            }
+                            tempMin = int.Parse(tempStringDateTime[0].Substring(tempStringDateTime[0].IndexOf(":") + 1));
+                        }
+
+                        //get month int
+                        if (tempStringDateTime[3 - indexChange].Equals("January"))
+                            tempMonth = 1;
+                        else if (tempStringDateTime[3 - indexChange].Equals("February"))
+                            tempMonth = 2;
+                        else if (tempStringDateTime[3 - indexChange].Equals("March"))
+                            tempMonth = 3;
+                        else if (tempStringDateTime[3 - indexChange].Equals("April"))
+                            tempMonth = 4;
+                        else if (tempStringDateTime[3 - indexChange].Equals("May"))
+                            tempMonth = 5;
+                        else if (tempStringDateTime[3 - indexChange].Equals("June"))
+                            tempMonth = 6;
+                        else if (tempStringDateTime[3 - indexChange].Equals("July"))
+                            tempMonth = 7;
+                        else if (tempStringDateTime[3 - indexChange].Equals("August"))
+                            tempMonth = 8;
+                        else if (tempStringDateTime[3 - indexChange].Equals("September"))
+                            tempMonth = 9;
+                        else if (tempStringDateTime[3 - indexChange].Equals("October"))
+                            tempMonth = 10;
+                        else if (tempStringDateTime[3 - indexChange].Equals("November"))
+                            tempMonth = 11;
+                        else if (tempStringDateTime[3 - indexChange].Equals("December"))
+                            tempMonth = 12;
+                        else
+                            tempMonth = 0;
+
+                        tempJob = new Job(tempJobName, new DateTime(int.Parse(tempStringDateTime[5 - indexChange]), tempMonth, int.Parse(tempStringDateTime[4 - indexChange].Substring(0, tempStringDateTime[4 - indexChange].IndexOf(","))), tempHour, tempMin, 0, 0), tempCancelled);
+
+
+
+                        //grab workers
+                        for (int tempElementArrayIndex = 3; tempElementArrayIndex < tempElementArray.Length; tempElementArrayIndex++)
+                        {
+                            tempElementArray[tempElementArrayIndex] = tempElementArray[tempElementArrayIndex].Trim();
+
+                            //reuse for name and start and stop times
+                            tempStringDateTime = tempElementArray[tempElementArrayIndex].Trim().Split(new char[] { ' ' });
+
+                            tempPerson = new Person(tempStringDateTime[0], tempStringDateTime[1]);
+
+                            indexChange = 0;
+
+                            //analyze worker start time
+                            if (tempStringDateTime[2].Equals("NOON"))
+                            {
+                                indexChange = 1;
+                                tempHour = 12;
+                                tempMin = 0;
+
+                            }
+                            else if (tempStringDateTime[2].Equals("MIDNIGHT"))
+                            {
+                                indexChange = 1;
+                                tempHour = 0;
+                                tempMin = 0;
+                            }
+                            else
+                            {
+                                tempHour = int.Parse(tempStringDateTime[2].Substring(0, tempStringDateTime[2].IndexOf(":")));
+                                if (tempStringDateTime[3].Equals("PM"))
+                                {
+                                    tempHour += 12;
+
+                                    //this is more for rare errors in code analyis it is barely used
+                                    if (tempHour >= 24)
+                                    {
+                                        tempHour -= 24;
+                                    }
+                                }
+                                tempMin = int.Parse(tempStringDateTime[2].Substring(tempStringDateTime[2].IndexOf(":") + 1));
+                            }
+
+                            if (tempMin == 0)
+                                tempHour *= 100;
+                            else if (tempMin < 10)
+                                tempHour = tempHour * 100 + tempMin;
+                            else
+                                tempHour = tempHour * 100 + tempMin;
+
+                            //set person attributes
+                            tempPerson.setStartTime(tempHour);
+
+
+                            
+                            //analyze worker start time
+                            if (tempStringDateTime[4 - indexChange].Equals("NOON"))
+                            {
+                                tempHour = 12;
+                                tempMin = 0;
+
+                            }
+                            else if (tempStringDateTime[4 - indexChange].Equals("MIDNIGHT"))
+                            {
+                                tempHour = 0;
+                                tempMin = 0;
+                            }
+                            else
+                            {
+                                tempHour = int.Parse(tempStringDateTime[4 - indexChange].Substring(0, tempStringDateTime[4 - indexChange].IndexOf(":")));
+                                if (tempStringDateTime[5 - indexChange].Equals("PM"))
+                                {
+                                    tempHour += 12;
+
+                                    //this is more for rare errors in code analyis it is barely used
+                                    if (tempHour >= 24)
+                                    {
+                                        tempHour -= 24;
+                                    }
+                                }
+                                tempMin = int.Parse(tempStringDateTime[4 - indexChange].Substring(tempStringDateTime[4 - indexChange].IndexOf(":") + 1));
+                            }
+
+                            if (tempMin == 0)
+                                tempHour *= 100;
+                            else if (tempMin < 10)
+                                tempHour = tempHour * 100 + tempMin;
+                            else
+                                tempHour = tempHour * 100 + tempMin;
+
+                            //set person attributes
+                            tempPerson.setEndTime(tempHour);
+
+                            //add temp person to job
+                            tempJob.addWorker(tempPerson);
+                        }
                     }
-                    catch (Exception)
-                    {
-                        //don't store any values if exception
-                    }
+                    //end job add for day
+                    if(tempJob != null)
+                        jobs.Add(tempJob);
+
+
 
 
                     cDay++;
@@ -134,34 +324,7 @@ namespace AutomatedSchedule
 
                 //setup calendar
                 calendar.BoldedDates = scheduledDates;
-                //read in from raw data and input into calendar
-                formattedScheduleData = new String[elementCount];
-                for (int i = 0; i < elementCount; i++)
-                {
-                    //populate each value
-                    formattedScheduleData[i] = "";
-                }
-
-                tempScheduleAry = System.IO.File.ReadAllLines(@"rawSchedule.txt");
-                formattedScheduleData = new string[tempScheduleAry.Length];
-                int formattedIndex = 0;
-                for (int tempIndex = 0; tempIndex < tempScheduleAry.Length; tempIndex++)
-                {
-                    if (tempScheduleAry[tempIndex].Equals("*"))
-                    {
-                        formattedScheduleData[formattedIndex] = "\n";
-                        formattedIndex++;
-                        formattedScheduleData[formattedIndex] = "\n";
-                        formattedIndex++;
-                    }
-                    else if (!tempScheduleAry[tempIndex].Contains("Scheduled Employees Start Time End Time"))
-                    {
-                        formattedScheduleData[formattedIndex] = tempScheduleAry[tempIndex].Trim();
-                        formattedIndex++;
-                    }
-
-                }
-
+               
                 driver.Quit(); //Quits chrome and CMD
             }
         }
@@ -226,57 +389,21 @@ namespace AutomatedSchedule
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
+            String finalText = "";
+            List<Job> tempList = getJobsOnDay(calendar.SelectionStart);
 
-            try
+            for(int i = 0; i < tempList.Count; i++)
             {
-                //makes array of maximum length needed
-                String[] tempAry = new String[formattedScheduleData.Length];
-                String dateString = calendar.SelectionRange.Start.ToLongDateString();
-                String dayString = dateString.Substring(0, dateString.IndexOf(','));
-                String otherDateString = dateString.Substring(dateString.IndexOf(' ') + 1);
-                for (int i = 1; i < formattedScheduleData.Length; i++)
+                finalText += tempList[i].getJobName() + Environment.NewLine + tempList[i].getJobDateTime().ToString("dddd, dd MMMM yyyy") + Environment.NewLine;
+                foreach(Person w in tempList[i].getWorkers())
                 {
-                    if (formattedScheduleData[i].Contains(otherDateString))
-                    {
-                        int k = i - 1;
-                        while(!formattedScheduleData[k].Equals("\n"))
-                        {
-                            tempAry[k] = formattedScheduleData[k];
-                            k++;
-                        }
-                        tempAry[k] = formattedScheduleData[k];
-                        k++;
-                        tempAry[k] = formattedScheduleData[k];
-                        i = k;
-                    }
-                }
-                //String finalString = string.Join("\n", tempAry);
-                String finalString = String.Join("\n", tempAry.Where(s => !string.IsNullOrEmpty(s)));
-
-
-                int indexOfLastNewLine = 0;
-                int lastI = 0;
-                for(int i = 0; i < finalString.Length; i++)
-                {
-                    if (!finalString.Substring(i, i + 1).Equals("\n"))
-                    {
-                        indexOfLastNewLine = i;
-                        break;
-                    }
-                    lastI = i;
+                    finalText += w.getFirstName() + " " + w.getLastName() + " -> " + w.getFormattedTime(w.getStartTime()) + " - " + w.getFormattedTime(w.getEndTime()) + Environment.NewLine;
 
                 }
-                if(lastI == finalString.Length)
-                    selectedShift.Text = "NO SHIFTS ON THIS DAY";
-                else
-                    selectedShift.Text = finalString.Substring(indexOfLastNewLine);
+                finalText += Environment.NewLine;
             }
-            
-            catch(Exception)
-            {
-                selectedShift.Text = "NO SHIFTS ON THIS DAY";
-            }
-            
+            selectedShift.Text = finalText;
+
         }
         private void label7_Click(object sender, EventArgs e)
         {
@@ -295,7 +422,7 @@ namespace AutomatedSchedule
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            
+            /*
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             using (FileStream fileStream = File.Create("currentEvent.ics"))
             using (StreamWriter writer = new StreamWriter(fileStream))
@@ -323,11 +450,11 @@ namespace AutomatedSchedule
                     if (time2 == "PM")
                     {
                         if (time[counter - 1].Contains("12") == false)
-                            time[counter - 1] = Convert.ToString(Convert.ToInt32(time[counter - 1]) + 1200);
+                            time[counter - 1] = Convert.ToString(Convert.Toint(time[counter - 1]) + 1200);
                     }
                         counter++;
                 }
-                    if (time[1] == "MIDNIGHT" || time[2] == "MIDNIGHT" || time[3] == "MIDNIGHT" || (time[2] == "AM" && Convert.ToInt32(time[2]) < Convert.ToInt32(time[0])) || (time[3] == "AM" && Convert.ToInt32(time[2]) < Convert.ToInt32(time[0])))
+                    if (time[1] == "MIDNIGHT" || time[2] == "MIDNIGHT" || time[3] == "MIDNIGHT" || (time[2] == "AM" && Convert.Toint(time[2]) < Convert.Toint(time[0])) || (time[3] == "AM" && Convert.Toint(time[2]) < Convert.Toint(time[0])))
                     {
                         datechecker = true;
                     }
@@ -349,8 +476,8 @@ namespace AutomatedSchedule
                     }
                     counter++;
                 }
-                startandend[0] = Convert.ToString(Convert.ToInt32(startandend[0]) + 500);
-                startandend[1] = Convert.ToString(Convert.ToInt32(startandend[1]) + 500);
+                startandend[0] = Convert.ToString(Convert.Toint(startandend[0]) + 500);
+                startandend[1] = Convert.ToString(Convert.Toint(startandend[1]) + 500);
                 writer.WriteLine("BEGIN:VCALENDAR");
                 writer.WriteLine("CALSCALE:GREGORIAN");
                 writer.WriteLine("METHOD:PUBLISH");
@@ -360,21 +487,38 @@ namespace AutomatedSchedule
                 if(datechecker == false)
                     writer.WriteLine("DTEND:" + calendar.SelectionStart.ToString("yyyyMMdd") + "T"  + startandend[1] + "00Z");
                 else
-                    writer.WriteLine("DTEND:" + Convert.ToString(Convert.ToInt32(calendar.SelectionStart.ToString("yyyyMMdd")) + 1) + "T" + startandend[1] + "00Z");
+                    writer.WriteLine("DTEND:" + Convert.ToString(Convert.Toint(calendar.SelectionStart.ToString("yyyyMMdd")) + 1) + "T" + startandend[1] + "00Z");
                 writer.WriteLine("DESCRIPTION:" + selectedShift.Lines[1] + "\\n" + selectedShift.Lines[2] + "\\n" +selectedShift.Lines[3] + "\\n" + selectedShift.Lines[4]);
                 writer.WriteLine("LOCATION:");
                 writer.WriteLine("STATUS:CONFIRMED");
                 writer.WriteLine("SUMMARY:" + selectedShift.Lines[0]);
                 writer.WriteLine("END:VEVENT");
                 writer.WriteLine("END:VCALENDAR");
-            }
+            }*/
         }
-
+        
         private void notepadView_Click(object sender, EventArgs e)
-        { 
-            Process.Start(@"rawSchedule.txt");
+        {
+            /*Process.Start(@"rawSchedule.txt");
             File.WriteAllLines(@"notepadExportSchedule.txt", formattedScheduleData);
             Console.WriteLine(tempScheduleAry.Length);
+            */
+
+            //create new array to hold data
+            String[] jobsData = new String[jobs.Count];
+            int jobIndex = 0;
+
+            foreach (Job j in jobs)
+            {
+                jobsData[jobIndex] = j.getJobName() + Environment.NewLine + j.getJobDateTime().ToString("dddd, dd MMMM yyyy") + Environment.NewLine;
+                foreach (Person w in j.getWorkers())
+                {
+                    jobsData[jobIndex] += w.getFirstName() + " " + w.getLastName() + " -> " + w.getFormattedTime(w.getStartTime()) + " - " + w.getFormattedTime(w.getEndTime()) + Environment.NewLine;
+                }
+                jobsData[jobIndex] += Environment.NewLine;
+                jobIndex++;
+            }
+            File.WriteAllLines(@"notepadExportSchedule.txt", jobsData);
         }
 
         private void allShifts_Click(object sender, EventArgs e)
@@ -384,6 +528,21 @@ namespace AutomatedSchedule
 
         private void label5_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private List<Job> getJobsOnDay(DateTime date)
+        {
+            List<Job> tempJobList = new List<Job>();
+
+
+            for(int i = 0; i < jobs.Count; i++)
+            {
+                if (jobs[i].getJobDateTime().Day == date.Day && jobs[i].getJobDateTime().Month == date.Month && jobs[i].getJobDateTime().Year == date.Year)
+                    tempJobList.Add(jobs[i]);
+            }
+
+            return tempJobList;
 
         }
     }

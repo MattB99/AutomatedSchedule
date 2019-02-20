@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Globalization;
 
+
 namespace AutomatedSchedule
 {
     public partial class AutomatedScheduler : Form
@@ -84,7 +85,7 @@ namespace AutomatedSchedule
                 else if (thirtyDayInc.Checked)
                     dateCounter = 30;
 
-               
+
                 System.DateTime[] scheduledDates = new System.DateTime[dateCounter];
 
                 String[] tempElementArray = null, tempStringDateTime;
@@ -96,7 +97,7 @@ namespace AutomatedSchedule
 
                 for (int i = dateCounter; i > 0; i--)
                 {
-                    
+
 
                     driver.Url = "http://172.21.20.41/cepdotnet/CEPHome.aspx?day=" + cDay + "&month=" + cMonth + "&year=" + cYear;
 
@@ -119,13 +120,13 @@ namespace AutomatedSchedule
                     tempJob = null;
                     foreach (IWebElement element in elements)
                     {
-                
-                        
+
+
                         //for midnight and noon time
                         indexChange = 0;
 
                         //split job into array of String values
-                        tempElementArray = element.Text.Split(new char[] {'\n'});
+                        tempElementArray = element.Text.Split(new char[] { '\n' });
 
                         //analyze name
                         if (tempElementArray[0].Contains("CANCELLED"))
@@ -140,7 +141,7 @@ namespace AutomatedSchedule
                         }
 
                         //analyze datetime of job
-                        tempStringDateTime = tempElementArray[1].Trim().Split(new char[]{' '});
+                        tempStringDateTime = tempElementArray[1].Trim().Split(new char[] { ' ' });
 
                         //analyze time
                         if (tempStringDateTime[0].Equals("NOON"))
@@ -259,7 +260,7 @@ namespace AutomatedSchedule
                             tempPerson.setStartTime(tempHour);
 
 
-                            
+
                             //analyze worker start time
                             if (tempStringDateTime[4 - indexChange].Equals("NOON"))
                             {
@@ -303,7 +304,7 @@ namespace AutomatedSchedule
                         }
                     }
                     //end job add for day
-                    if(tempJob != null)
+                    if (tempJob != null)
                         jobs.Add(tempJob);
 
 
@@ -326,7 +327,7 @@ namespace AutomatedSchedule
 
                 //setup calendar
                 calendar.BoldedDates = scheduledDates;
-               
+
                 driver.Quit(); //Quits chrome and CMD
             }
         }
@@ -394,10 +395,10 @@ namespace AutomatedSchedule
             String finalText = "";
             List<Job> tempList = getJobsOnDay(calendar.SelectionStart);
 
-            for(int i = 0; i < tempList.Count; i++)
+            for (int i = 0; i < tempList.Count; i++)
             {
                 finalText += tempList[i].getJobName() + Environment.NewLine + tempList[i].getJobDateTime().ToString("dddd, dd MMMM yyyy") + Environment.NewLine;
-                foreach(Person w in tempList[i].getWorkers())
+                foreach (Person w in tempList[i].getWorkers())
                 {
                     finalText += w.getFirstName() + " " + w.getLastName() + " -> " + w.getFormattedTime(w.getStartTime()) + " - " + w.getFormattedTime(w.getEndTime()) + Environment.NewLine;
 
@@ -498,7 +499,7 @@ namespace AutomatedSchedule
                 writer.WriteLine("END:VCALENDAR");
             }*/
         }
-        
+
         private void notepadView_Click(object sender, EventArgs e)
         {
             /*Process.Start(@"rawSchedule.txt");
@@ -526,7 +527,69 @@ namespace AutomatedSchedule
 
         private void allShifts_Click(object sender, EventArgs e)
         {
-            
+            Microsoft.Office.Interop.Excel.Application oXL;
+            Microsoft.Office.Interop.Excel._Workbook oWB;
+            Microsoft.Office.Interop.Excel._Worksheet oSheet;
+            Microsoft.Office.Interop.Excel.Range oRng;
+            object misvalue = System.Reflection.Missing.Value;
+            try
+            {
+                //Start Excel and get Application object.
+                oXL = new Microsoft.Office.Interop.Excel.Application();
+                oXL.Visible = true;
+
+                //Get a new workbook.
+                oWB = (Microsoft.Office.Interop.Excel._Workbook)(oXL.Workbooks.Add(""));
+                oSheet = (Microsoft.Office.Interop.Excel._Worksheet)oWB.ActiveSheet;
+
+                //Add table headers going cell by cell.
+                oSheet.Cells[1, 1] = "Shift Name";
+                oSheet.Cells[1, 2] = "Shift Date";
+                oSheet.Cells[1, 3] = "First Name";
+                oSheet.Cells[1, 4] = "Salary";
+
+                //Format A1:D1 as bold, vertical alignment = center.
+                oSheet.get_Range("A1", "D1").Font.Bold = true;
+                oSheet.get_Range("A1", "D1").VerticalAlignment =
+                    Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
+
+                // Create an array to multiple values at once.
+                string[,] saNames = new string[5, 2];
+
+                saNames[0, 0] = "John";
+                saNames[0, 1] = "Smith";
+                saNames[1, 0] = "Tom";
+
+                saNames[4, 1] = "Johnson";
+
+                //Fill A2:B6 with an array of values (First and Last Names).
+                oSheet.get_Range("A2", "B6").Value2 = saNames;
+
+                //Fill C2:C6 with a relative formula (=A2 & " " & B2).
+                oRng = oSheet.get_Range("C2", "C6");
+                oRng.Formula = "=A2 & \" \" & B2";
+
+                //Fill D2:D6 with a formula(=RAND()*100000) and apply format.
+                oRng = oSheet.get_Range("D2", "D6");
+                oRng.Formula = "=RAND()*100000";
+                oRng.NumberFormat = "$0.00";
+
+                //AutoFit columns A:D.
+                oRng = oSheet.get_Range("A1", "D1");
+                oRng.EntireColumn.AutoFit();
+
+                oXL.Visible = false;
+                oXL.UserControl = false;
+                oWB.SaveAs("test.xls", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
+                    false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
+                    Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+
+                oWB.Close();
+            }
+            catch
+            {
+
+            }
         }
 
         private void label5_Click(object sender, EventArgs e)

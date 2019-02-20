@@ -239,9 +239,9 @@
             // 
             this.excelView.Cursor = System.Windows.Forms.Cursors.Hand;
             this.excelView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.excelView.Location = new System.Drawing.Point(741, 361);
+            this.excelView.Location = new System.Drawing.Point(989, 361);
             this.excelView.Name = "excelView";
-            this.excelView.Size = new System.Drawing.Size(172, 45);
+            this.excelView.Size = new System.Drawing.Size(254, 45);
             this.excelView.TabIndex = 19;
             this.excelView.Text = "Excel";
             this.excelView.UseVisualStyleBackColor = true;
@@ -285,9 +285,9 @@
             // 
             this.notepadView.Cursor = System.Windows.Forms.Cursors.Hand;
             this.notepadView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.notepadView.Location = new System.Drawing.Point(741, 361);
+            this.notepadView.Location = new System.Drawing.Point(735, 361);
             this.notepadView.Name = "notepadView";
-            this.notepadView.Size = new System.Drawing.Size(502, 45);
+            this.notepadView.Size = new System.Drawing.Size(248, 45);
             this.notepadView.TabIndex = 23;
             this.notepadView.Text = "Notepad";
             this.notepadView.UseVisualStyleBackColor = true;

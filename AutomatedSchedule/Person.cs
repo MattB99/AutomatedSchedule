@@ -70,15 +70,34 @@ namespace AutomatedSchedule
             String formattedTime = "";
             int minutes = militaryTime % 100, hours = militaryTime / 100;
             
-            if(hours < 12)
+            if(hours < 12 && hours != 0)
             {
-                formattedTime += hours + ":" + minutes + " AM";
+                if(minutes == 0) 
+                    formattedTime += hours + ":" + "00" + " AM";
+                else
+                    formattedTime += hours + ":" + minutes + " AM";
             }
-            else
+            else if(hours > 12)
             {
-                formattedTime += (hours-12) + ":" + minutes + " PM";
+                if (minutes == 0)
+                    formattedTime += (hours-12) + ":" + "00" + " PM";
+                else
+                    formattedTime += (hours-12) + ":" + minutes + " PM";
             }
-
+            else if(hours == 0)
+            {
+                if (minutes == 0)
+                    formattedTime += "12" + ":" + "00" + " AM";
+                else
+                    formattedTime += "12" + ":" + minutes + " AM";
+            }
+            if (hours == 12)
+            {
+                if (minutes == 0)
+                    formattedTime += hours + ":" + "00" + " PM";
+                else
+                    formattedTime += hours + ":" + minutes + " PM";
+            }
             return formattedTime;
 
         }

@@ -276,7 +276,7 @@
             this.selectedShift.Location = new System.Drawing.Point(735, 80);
             this.selectedShift.Name = "selectedShift";
             this.selectedShift.ReadOnly = true;
-            this.selectedShift.Size = new System.Drawing.Size(358, 252);
+            this.selectedShift.Size = new System.Drawing.Size(508, 252);
             this.selectedShift.TabIndex = 21;
             this.selectedShift.Text = "";
             this.selectedShift.TextChanged += new System.EventHandler(this.selectedShift_TextChanged);
@@ -287,7 +287,7 @@
             this.notepadView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.notepadView.Location = new System.Drawing.Point(741, 361);
             this.notepadView.Name = "notepadView";
-            this.notepadView.Size = new System.Drawing.Size(352, 45);
+            this.notepadView.Size = new System.Drawing.Size(502, 45);
             this.notepadView.TabIndex = 23;
             this.notepadView.Text = "Notepad";
             this.notepadView.UseVisualStyleBackColor = true;
@@ -323,7 +323,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1109, 470);
+            this.ClientSize = new System.Drawing.Size(1255, 470);
             this.Controls.Add(this.iCalCreater);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.notepadView);

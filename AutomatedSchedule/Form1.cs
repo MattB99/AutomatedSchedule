@@ -519,6 +519,7 @@ namespace AutomatedSchedule
                 jobIndex++;
             }
             File.WriteAllLines(@"notepadExportSchedule.txt", jobsData);
+            Process.Start(@"notepadExportSchedule.txt");
         }
 
         private void allShifts_Click(object sender, EventArgs e)

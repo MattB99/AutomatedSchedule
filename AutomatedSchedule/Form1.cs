@@ -344,7 +344,7 @@ namespace AutomatedSchedule
                 getDataBtn.Visible = true;
             }
             else
-                MessageBox.Show("Please complete all fields before clicking enter.");
+                MessageBox.Show("Please complete all fields before clicking save.");
         }
 
         private void About_Click(object sender, EventArgs e)
@@ -425,6 +425,16 @@ namespace AutomatedSchedule
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            StreamWriter cal = new StreamWriter(@"testCal.ics");
+            cal.WriteLine("BEGIN:VCALENDAR");
+            cal.WriteLine("METHOD:PUBLISH");
+            cal.WriteLine("BEGIN:VEVENT");
+            cal.WriteLine("LOCATION:");
+            cal.WriteLine("STATUS:CONFIRMED");
+            cal.WriteLine("SUMMARY:");
+            cal.WriteLine("END:VEVENT");
+            cal.WriteLine("END:VCALENDAR");
+            cal.Close();
             /*
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             using (FileStream fileStream = File.Create("currentEvent.ics"))
@@ -543,7 +553,7 @@ namespace AutomatedSchedule
                 oSheet = (Microsoft.Office.Interop.Excel._Worksheet)oWB.ActiveSheet;
 
                 //Add table headers going cell by cell.
-                oSheet.Cells[1, 1] = "Shift Name";
+                oSheet.Cells[1, 1] = "Test";
                 oSheet.Cells[1, 2] = "Shift Date";
                 oSheet.Cells[1, 3] = "First Name";
                 oSheet.Cells[1, 4] = "Salary";

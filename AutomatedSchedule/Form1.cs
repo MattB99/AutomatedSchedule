@@ -621,5 +621,54 @@ namespace AutomatedSchedule
             return tempJobList;
 
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (DarkMode.Checked == true)
+            {
+                Font defaultFont = SystemFonts.DefaultFont;
+                Color darkdarkGray = ControlPaint.Dark(Color.Gray);
+                this.BackColor = darkdarkGray;
+                label1.ForeColor = Color.White;
+                label2.ForeColor = Color.White;
+                label3.ForeColor = Color.White;
+                label4.ForeColor = Color.White;
+                label5.ForeColor = Color.White;
+                label6.ForeColor = Color.White;
+                label7.ForeColor = Color.White;
+                Title.ForeColor = Color.White;
+                DarkMode.ForeColor = Color.White;
+                fNameBox.ForeColor = Color.White;
+                fNameBox.BackColor = Color.LightSlateGray;
+                lNameBox.ForeColor = Color.White;
+                lNameBox.BackColor = Color.LightSlateGray;
+                usernameBox.ForeColor = Color.White;
+                usernameBox.BackColor = Color.LightSlateGray;
+                passwordBox.ForeColor = Color.White;
+                passwordBox.BackColor = Color.LightSlateGray;
+                selectedShift.BackColor = Color.SlateGray;
+                selectedShift.ForeColor = Color.White;
+                fiveDayInc.ForeColor = Color.White;
+                tenDayInc.ForeColor = Color.White;
+                twentyDayInc.ForeColor = Color.White;
+                thirtyDayInc.ForeColor = Color.White;
+                About.BackColor = Color.Gray;
+                About.ForeColor = Color.White;
+                notepadView.BackColor = Color.Gray;
+                notepadView.ForeColor = Color.White;
+                excelView.BackColor = Color.Gray;
+                excelView.ForeColor = Color.White;
+                iCalCreater.BackColor = Color.Gray;
+                iCalCreater.ForeColor = Color.White;
+
+
+                fNameBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
+                lNameBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
+                usernameBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
+                passwordBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
+                selectedShift.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
+            }
+
+        }
     }
 }

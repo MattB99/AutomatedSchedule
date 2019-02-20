@@ -55,6 +55,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.iCalCreater = new System.Windows.Forms.Button();
+            this.DarkMode = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // getDataBtn
@@ -316,6 +317,17 @@
             this.iCalCreater.UseVisualStyleBackColor = true;
             this.iCalCreater.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // DarkMode
+            // 
+            this.DarkMode.AutoSize = true;
+            this.DarkMode.Location = new System.Drawing.Point(119, 415);
+            this.DarkMode.Name = "DarkMode";
+            this.DarkMode.Size = new System.Drawing.Size(113, 24);
+            this.DarkMode.TabIndex = 26;
+            this.DarkMode.Text = "Dark Mode";
+            this.DarkMode.UseVisualStyleBackColor = true;
+            this.DarkMode.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // AutomatedScheduler
             // 
             this.AccessibleDescription = "Schedule searcher for Virginia Tech\'s Production Services CEP interace.";
@@ -324,6 +336,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1255, 470);
+            this.Controls.Add(this.DarkMode);
             this.Controls.Add(this.iCalCreater);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.notepadView);
@@ -384,6 +397,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.MonthCalendar calendar;
         private System.Windows.Forms.Button iCalCreater;
+        private System.Windows.Forms.CheckBox DarkMode;
     }
 }
 

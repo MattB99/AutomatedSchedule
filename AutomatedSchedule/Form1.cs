@@ -29,16 +29,18 @@ namespace AutomatedSchedule
 
             //initializes list of jobs
             jobs = new List<Job>();
-
-            lines = System.IO.File.ReadAllLines(@"userData.txt");
-            if(lines[0] != null)
-                fNameBox.Text = lines[0];
-            if (lines[1] != null)
-                lNameBox.Text = lines[1];
-            if (lines[2] != null)
-                usernameBox.Text = lines[2];
-            if (lines[3] != null)
-                passwordBox.Text = lines[3];
+            if (File.Exists(@"userData.txt") == true)
+            {
+                lines = System.IO.File.ReadAllLines(@"userData.txt");
+                if (lines[0] != null)
+                    fNameBox.Text = lines[0];
+                if (lines[1] != null)
+                    lNameBox.Text = lines[1];
+                if (lines[2] != null)
+                    usernameBox.Text = lines[2];
+                if (lines[3] != null)
+                    passwordBox.Text = lines[3];
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

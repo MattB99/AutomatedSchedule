@@ -17,7 +17,10 @@ namespace AutomatedSchedule
             jobDateTime = jDateTime;
             cancelled = false;
         }
-
+        ~Job()
+        {
+            workers.Clear();
+        }
         public Job(String jName, DateTime jDateTime, bool canc)
         {
             workers = new List<Person>();

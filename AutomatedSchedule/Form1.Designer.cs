@@ -64,7 +64,7 @@
             // 
             this.getDataBtn.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.getDataBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.getDataBtn.Location = new System.Drawing.Point(253, 290);
+            this.getDataBtn.Location = new System.Drawing.Point(253, 292);
             this.getDataBtn.Name = "getDataBtn";
             this.getDataBtn.Size = new System.Drawing.Size(100, 42);
             this.getDataBtn.TabIndex = 0;

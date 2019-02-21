@@ -709,6 +709,7 @@ namespace AutomatedSchedule
                 "4. Once all Google Chrome and Command Prompt windows close, select a bold day on the calendar to view a shift.\n\n" +
                 "You can create a calendar file from any specified shift, or you can export the entire schedule to Excel or Notepad.\n\n" +
                 "If you would like to save the Excel or Notepad file, select 'Save As.\n\n'" +
+                "The calendar output file is intended for Google Calendar. \n\n" +
                 "Select the 'dark mode' checkbox to enable dark mode.\n\n\n\n"+
                 "This program is not a substitute for double checking your shifts. We are not responsible if the software malfunctions.");
         }

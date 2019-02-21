@@ -54,8 +54,9 @@
             this.notepadView = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.iCalCreater = new System.Windows.Forms.Button();
+            this.reset = new System.Windows.Forms.Button();
             this.DarkMode = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // getDataBtn
@@ -307,26 +308,36 @@
             this.label5.Visible = false;
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
-            // iCalCreater
+            // reset
             // 
-            this.iCalCreater.Location = new System.Drawing.Point(368, 415);
-            this.iCalCreater.Name = "iCalCreater";
-            this.iCalCreater.Size = new System.Drawing.Size(352, 45);
-            this.iCalCreater.TabIndex = 25;
-            this.iCalCreater.Text = "Create Calendar File from Selected Shift";
-            this.iCalCreater.UseVisualStyleBackColor = true;
-            this.iCalCreater.Click += new System.EventHandler(this.button1_Click_1);
+            this.reset.Location = new System.Drawing.Point(735, 415);
+            this.reset.Name = "reset";
+            this.reset.Size = new System.Drawing.Size(508, 45);
+            this.reset.TabIndex = 25;
+            this.reset.Text = "Create Calendar File from Selected Shift";
+            this.reset.UseVisualStyleBackColor = true;
+            this.reset.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // DarkMode
             // 
             this.DarkMode.AutoSize = true;
-            this.DarkMode.Location = new System.Drawing.Point(119, 415);
+            this.DarkMode.Location = new System.Drawing.Point(174, 426);
             this.DarkMode.Name = "DarkMode";
             this.DarkMode.Size = new System.Drawing.Size(113, 24);
             this.DarkMode.TabIndex = 26;
             this.DarkMode.Text = "Dark Mode";
             this.DarkMode.UseVisualStyleBackColor = true;
             this.DarkMode.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(371, 415);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(358, 45);
+            this.button1.TabIndex = 27;
+            this.button1.Text = "Clear Text Fields";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // AutomatedScheduler
             // 
@@ -336,8 +347,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1255, 470);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.DarkMode);
-            this.Controls.Add(this.iCalCreater);
+            this.Controls.Add(this.reset);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.notepadView);
             this.Controls.Add(this.label7);
@@ -396,8 +408,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.MonthCalendar calendar;
-        private System.Windows.Forms.Button iCalCreater;
+        private System.Windows.Forms.Button reset;
         private System.Windows.Forms.CheckBox DarkMode;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -624,10 +624,10 @@ namespace AutomatedSchedule
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+            Font defaultFont = SystemFonts.DefaultFont;
+            Color darkdarkGray = ControlPaint.Dark(Color.Gray);
             if (DarkMode.Checked == true)
             {
-                Font defaultFont = SystemFonts.DefaultFont;
-                Color darkdarkGray = ControlPaint.Dark(Color.Gray);
                 this.BackColor = darkdarkGray;
                 label1.ForeColor = Color.White;
                 label2.ForeColor = Color.White;
@@ -658,16 +658,88 @@ namespace AutomatedSchedule
                 notepadView.ForeColor = Color.White;
                 excelView.BackColor = Color.Gray;
                 excelView.ForeColor = Color.White;
-                iCalCreater.BackColor = Color.Gray;
-                iCalCreater.ForeColor = Color.White;
-
-
+                reset.BackColor = Color.Gray;
+                reset.ForeColor = Color.White;
+                reset.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
+                About.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
+                fiveDayInc.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
+                tenDayInc.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
+                twentyDayInc.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
+                thirtyDayInc.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
+                button1.BackColor = Color.Gray;
+                button1.ForeColor = Color.White;
+                button1.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
                 fNameBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
                 lNameBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
                 usernameBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
                 passwordBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
                 selectedShift.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
             }
+            else
+            {
+                this.BackColor = Control.DefaultBackColor;
+                label1.ForeColor = Control.DefaultForeColor;
+                label2.ForeColor = Control.DefaultForeColor;
+                label3.ForeColor = Control.DefaultForeColor;
+                label4.ForeColor = Control.DefaultForeColor;
+                label5.ForeColor = Control.DefaultForeColor;
+                label6.ForeColor = Control.DefaultForeColor;
+                label7.ForeColor = Control.DefaultForeColor;
+                Title.ForeColor = Control.DefaultForeColor;
+                DarkMode.ForeColor = Control.DefaultForeColor;
+                fNameBox.ForeColor = Control.DefaultForeColor;
+                fNameBox.BackColor = Control.DefaultBackColor;
+                lNameBox.ForeColor = Control.DefaultForeColor;
+                lNameBox.BackColor = Control.DefaultBackColor;
+                usernameBox.ForeColor = Control.DefaultForeColor;
+                usernameBox.BackColor = Control.DefaultBackColor;
+                passwordBox.ForeColor = Control.DefaultForeColor;
+                passwordBox.BackColor = Control.DefaultBackColor;
+                selectedShift.BackColor = Control.DefaultBackColor;
+                selectedShift.ForeColor = Control.DefaultForeColor;
+                fiveDayInc.ForeColor = Control.DefaultForeColor;
+                tenDayInc.ForeColor = Control.DefaultForeColor;
+                twentyDayInc.ForeColor = Control.DefaultForeColor;
+                thirtyDayInc.ForeColor = Control.DefaultForeColor;
+                About.BackColor = Control.DefaultBackColor;
+                About.ForeColor = Control.DefaultForeColor;
+                notepadView.BackColor = Control.DefaultBackColor;
+                notepadView.ForeColor = Control.DefaultForeColor;
+                excelView.BackColor = Control.DefaultBackColor;
+                excelView.ForeColor = Control.DefaultForeColor;
+                reset.BackColor = Control.DefaultBackColor;
+                reset.ForeColor = Control.DefaultForeColor;
+                reset.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
+                About.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
+                fiveDayInc.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
+                tenDayInc.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
+                twentyDayInc.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
+                thirtyDayInc.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
+                button1.BackColor = Control.DefaultBackColor;
+                button1.ForeColor = Control.DefaultForeColor;
+                button1.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
+                fNameBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
+                lNameBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
+                usernameBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
+                passwordBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
+                selectedShift.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
+            }
+
+
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            fNameBox.Text = "";
+            lNameBox.Text = "";
+            usernameBox.Text = "";
+            passwordBox.Text = "";
+            System.IO.File.WriteAllLines(@"userData.txt", new string[] { fNameBox.Text, lNameBox.Text, usernameBox.Text, passwordBox.Text });
+            fiveDayInc.Visible = false;
+            tenDayInc.Visible = false;
+            twentyDayInc.Visible = false;
+            thirtyDayInc.Visible = false;
+            getDataBtn.Visible = false;
 
         }
     }

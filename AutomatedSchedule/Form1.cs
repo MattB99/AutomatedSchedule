@@ -305,10 +305,12 @@ namespace AutomatedSchedule
                             //add temp person to job
                             tempJob.addWorker(tempPerson);
                         }
+                        //end job add for day
+                        if (tempJob != null)
+                            jobs.Add(tempJob);
                     }
-                    //end job add for day
-                    if (tempJob != null)
-                        jobs.Add(tempJob);
+                    
+
 
 
 
@@ -331,11 +333,13 @@ namespace AutomatedSchedule
                 //setup calendar
                 calendar.BoldedDates = scheduledDates;
                 driver.Quit(); //Quits chrome and CMD
+                
             }
         }
 
         private void editUserDataBtn_Click(object sender, EventArgs e)
         {
+            
             if (fNameBox.Text != "" && lNameBox.Text != "" && usernameBox.Text != "" && passwordBox.Text != "")
             {
                 System.IO.File.WriteAllLines(@"userData.txt", new string[] { fNameBox.Text, lNameBox.Text, usernameBox.Text, passwordBox.Text });
@@ -344,6 +348,7 @@ namespace AutomatedSchedule
                 twentyDayInc.Visible = true;
                 thirtyDayInc.Visible = true;
                 getDataBtn.Visible = true;
+                jobs.Clear();
             }
             else
                 MessageBox.Show("Please complete all fields before clicking save.");
@@ -446,7 +451,7 @@ namespace AutomatedSchedule
                         }
                         else
                         {
-                            newstarttime = Convert.ToString(w.getStartTime());
+                                newstarttime = Convert.ToString(w.getStartTime());
                         }
                         if (Convert.ToString(w.getEndTime()).Length < 4)
                         {

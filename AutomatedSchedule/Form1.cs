@@ -46,6 +46,7 @@ namespace AutomatedSchedule
 
         private void button1_Click(object sender, EventArgs e)
         {
+            selectedShift.Text = "";
             if (fiveDayInc.Checked == false && tenDayInc.Checked == false && twentyDayInc.Checked == false && thirtyDayInc.Checked == false)
             {
                 MessageBox.Show("Please select the number of days you'd like to search through.");
@@ -425,70 +426,59 @@ namespace AutomatedSchedule
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            StreamWriter cal = new StreamWriter(@"testCal.ics");
-            cal.WriteLine("BEGIN:VCALENDAR");
-            cal.WriteLine("METHOD:PUBLISH");
-            cal.WriteLine("BEGIN:VEVENT");
-            cal.WriteLine("LOCATION:");
-            cal.WriteLine("STATUS:CONFIRMED");
-            cal.WriteLine("SUMMARY:");
-            cal.WriteLine("END:VEVENT");
-            cal.WriteLine("END:VCALENDAR");
-            cal.Close();
-            /*
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            using (FileStream fileStream = File.Create("currentEvent.ics"))
-            using (StreamWriter writer = new StreamWriter(fileStream))
+            List<Job> tempList = getJobsOnDay(calendar.SelectionStart);
+            string FileName = "calendar";
+            int calNum = 1;
+            string newstarttime, newendtime;
+            string description = "";
+            for (int i = 0; i < tempList.Count; i++)
+
             {
-                int boxLocation = selectedShift.Find(lNameBox.Text);
-                string lineText = selectedShift.Lines[selectedShift.GetLineFromCharIndex(boxLocation)];
-                int length1 = fNameBox.TextLength;
-                int length2 = lNameBox.TextLength;
-                lineText = lineText.Substring(length1 + length2 + 2);
-                string[] time = lineText.Split(' ');
-                bool datechecker = false;
-                int counter = 0;
-                foreach (string time1 in time)
+                StreamWriter cal = new StreamWriter(FileName + calNum + ".ics");
+                cal.WriteLine("BEGIN:VCALENDAR");
+                cal.WriteLine("METHOD:PUBLISH");
+                cal.WriteLine("BEGIN:VEVENT");
+                cal.WriteLine("LOCATION:");
+                foreach (Person w in tempList[i].getWorkers())
                 {
-                    time[counter] = time1.Replace(":", "");
-                    counter++;
+                  description = description + (w.getFirstName() + " " + w.getLastName() + " -> " + w.getFormattedTime(w.getStartTime()) + " - " + w.getFormattedTime(w.getEndTime()) + "\\n");
+
+                    if (w.getLastName() == lNameBox.Text)
+                    {
+                        if (Convert.ToString(w.getStartTime()).Length < 4)
+                        {
+                            newstarttime = "0" + Convert.ToString(w.getStartTime());
+                        }
+                        else
+                        {
+                            newstarttime = Convert.ToString(w.getStartTime());
+                        }
+                        if (Convert.ToString(w.getEndTime()).Length < 4)
+                        {
+                            newendtime = "0" + Convert.ToString(w.getEndTime());
+                        }
+                        else
+                        {
+                            newendtime = Convert.ToString(w.getEndTime());
+                        }
+                        cal.WriteLine("DTSTART;TZID=America/New_York:" + tempList[i].getJobDateTime().ToString("yyyyMMdd") + "T" + newstarttime + "00Z");
+                        if(w.getEndTime() < w.getStartTime() || w.getEndTime() > 2400)
+                        cal.WriteLine("DTEND;TZID=America/New_York:" + (Convert.ToInt32(tempList[i].getJobDateTime().ToString("yyyyMMdd"))+1) + "T" + newendtime + "00Z");
+                        else
+                        cal.WriteLine("DTEND;TZID=America/New_York:" + tempList[i].getJobDateTime().ToString("yyyyMMdd") + "T" + newendtime + "00Z");
+                    }
                 }
-                counter = 0;
-                foreach (string time2 in time)
-                {
-                    if (time2 == "NOON")
-                        time[counter] = "1200";
-                    if (time2 == "MIDNIGHT")
-                        time[counter] = "2400";
-                    if (time2 == "PM")
-                    {
-                        if (time[counter - 1].Contains("12") == false)
-                            time[counter - 1] = Convert.ToString(Convert.Toint(time[counter - 1]) + 1200);
-                    }
-                        counter++;
-                }
-                    if (time[1] == "MIDNIGHT" || time[2] == "MIDNIGHT" || time[3] == "MIDNIGHT" || (time[2] == "AM" && Convert.Toint(time[2]) < Convert.Toint(time[0])) || (time[3] == "AM" && Convert.Toint(time[2]) < Convert.Toint(time[0])))
-                    {
-                        datechecker = true;
-                    }
-                counter = 0;
-                int counter2 = 0;
-                string[] startandend = new string[2];
-                foreach (string time3 in time)
-                {
-                    if (time3.Length < 4 && time3 != "PM" && time3 != "AM")
-                    {
-                        time[counter] = "0" + time3;
-                        startandend[counter2] = time[counter];
-                        counter2++;
-                    }
-                    else if(time3 != "PM" && time3 != "AM")
-                    {
-                        startandend[counter2] = time[counter];
-                        counter2++;
-                    }
-                    counter++;
-                }
+                cal.WriteLine("DESCRIPTION:" + description);
+                cal.WriteLine("STATUS:CONFIRMED");
+                cal.WriteLine("SUMMARY:" + tempList[i].getJobName());
+                cal.WriteLine("END:VEVENT");
+                cal.WriteLine("END:VCALENDAR");
+                cal.Close();
+                calNum += 1;
+            }
+
+            /*
+
                 startandend[0] = Convert.ToString(Convert.Toint(startandend[0]) + 500);
                 startandend[1] = Convert.ToString(Convert.Toint(startandend[1]) + 500);
                 writer.WriteLine("BEGIN:VCALENDAR");
@@ -512,11 +502,6 @@ namespace AutomatedSchedule
 
         private void notepadView_Click(object sender, EventArgs e)
         {
-            /*Process.Start(@"rawSchedule.txt");
-            File.WriteAllLines(@"notepadExportSchedule.txt", formattedScheduleData);
-            Console.WriteLine(tempScheduleAry.Length);
-            */
-
             //create new array to hold data
             String[] jobsData = new String[jobs.Count];
             int jobIndex = 0;
@@ -560,7 +545,7 @@ namespace AutomatedSchedule
                 oSheet.Cells[2, 3] = "Shift Staff";
                 oSheet.Cells[2, 4] = "Time Scheduled";
                 oSheet.Cells[1, 4] = "Number of Shifts: " + jobs.Count;
-                int row = 3;
+                int row = 4;
                 foreach (Job j in jobs)
                 {
                     oSheet.Cells[row, 1] = j.getJobName();
@@ -579,21 +564,17 @@ namespace AutomatedSchedule
                 oSheet.get_Range("A1", "D1").Font.Bold = true;
                 oSheet.get_Range("A1", "D1").VerticalAlignment =
                     Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
-
+                oSheet.get_Range("A2", "D2").Font.Underline = true;
+                oSheet.get_Range("A2", "D2").VerticalAlignment =
+                    Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
                 // Create an array to multiple values at once.
                 string[,] saNames = new string[5, 2];
 
                 //AutoFit columns A:D.
                 oRng = oSheet.get_Range("A1", "J1");
                 oRng.EntireColumn.AutoFit();
-
                 oXL.Visible = true;
                 oXL.UserControl = true;
-               // oWB.SaveAs("test.xlsx", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
-               //     false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
-               //     Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-                //oWB.Close();
-                //Process.Start("text.xlsx");
             }
             catch
             {

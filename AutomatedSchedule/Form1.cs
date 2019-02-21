@@ -46,6 +46,7 @@ namespace AutomatedSchedule
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             selectedShift.Text = "";
             calendar.BoldedDates = null;
             if (fiveDayInc.Checked == false && tenDayInc.Checked == false && twentyDayInc.Checked == false && thirtyDayInc.Checked == false)
@@ -351,13 +352,8 @@ namespace AutomatedSchedule
         private void About_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Created by Matthew Bocharnikov and Greg Fairbanks\n\n" +
-                "Enter your information in each textbox. Select 'Save.'\n" +
-                "Select the number of days you'd like to search through and press 'Search.'\n" +
-                "If you are not on the Virginia Tech campus wifi, you must enable the Pulse Secure VPN.\n" +
-                "Do not exit any windows. They will close automatically when the process is complete.\n" +
-                "Select a date on the calendar to view the shift for that day. Select the Excel or Notepad button to view all shifts.\n" +
-                "This program is not a substitute for double checking your shifts. We are not responsible if the software malfunctions\n\n" +
-                "Not for resale or redistribution without permission.");
+                "For distribution to Virginia Tech Production Services employees only.\n\n" +
+                "Not for resale.");
         }
 
         private void passwordBox_TextChanged(object sender, EventArgs e)
@@ -626,6 +622,8 @@ namespace AutomatedSchedule
                 thirtyDayInc.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
                 button1.BackColor = Color.Gray;
                 button1.ForeColor = Color.White;
+                use.BackColor = Color.Gray;
+                use.ForeColor = Color.White;
                 button1.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
                 fNameBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
                 lNameBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Bold);
@@ -675,6 +673,8 @@ namespace AutomatedSchedule
                 thirtyDayInc.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
                 button1.BackColor = Control.DefaultBackColor;
                 button1.ForeColor = Control.DefaultForeColor;
+                use.BackColor = Control.DefaultBackColor;
+                use.ForeColor = Control.DefaultForeColor;
                 button1.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
                 fNameBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
                 lNameBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
@@ -699,6 +699,18 @@ namespace AutomatedSchedule
             thirtyDayInc.Visible = false;
             getDataBtn.Visible = false;
 
+        }
+
+        private void use_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("1. Connect to Virginia Tech WiFi or enable the Pulse Secure VPN.\n\n" +
+                "2. Fill in all blanks with information and press 'Save.'\n\n" +
+                "3. Enter how many days you'd like to search through and press 'Search.'\n\n" +
+                "4. Once all Google Chrome and Command Prompt windows close, select a bold day on the calendar to view a shift.\n\n" +
+                "You can create a calendar file from any specified shift, or you can export the entire schedule to Excel or Notepad.\n\n" +
+                "If you would like to save the Excel or Notepad file, select 'Save As.\n\n'" +
+                "Select the 'dark mode' checkbox to enable dark mode.\n\n\n\n"+
+                "This program is not a substitute for double checking your shifts. We are not responsible if the software malfunctions.");
         }
     }
 }

@@ -57,6 +57,7 @@
             this.reset = new System.Windows.Forms.Button();
             this.DarkMode = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.use = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // getDataBtn
@@ -168,9 +169,9 @@
             // About
             // 
             this.About.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.About.Location = new System.Drawing.Point(119, 347);
+            this.About.Location = new System.Drawing.Point(253, 347);
             this.About.Name = "About";
-            this.About.Size = new System.Drawing.Size(234, 59);
+            this.About.Size = new System.Drawing.Size(100, 59);
             this.About.TabIndex = 10;
             this.About.Text = "About";
             this.About.UseVisualStyleBackColor = true;
@@ -339,6 +340,17 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
+            // use
+            // 
+            this.use.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.use.Location = new System.Drawing.Point(119, 347);
+            this.use.Name = "use";
+            this.use.Size = new System.Drawing.Size(100, 59);
+            this.use.TabIndex = 28;
+            this.use.Text = "How to Use";
+            this.use.UseVisualStyleBackColor = true;
+            this.use.Click += new System.EventHandler(this.use_Click);
+            // 
             // AutomatedScheduler
             // 
             this.AccessibleDescription = "Schedule searcher for Virginia Tech\'s Production Services CEP interace.";
@@ -347,6 +359,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1255, 470);
+            this.Controls.Add(this.use);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.DarkMode);
             this.Controls.Add(this.reset);
@@ -411,6 +424,7 @@
         private System.Windows.Forms.Button reset;
         private System.Windows.Forms.CheckBox DarkMode;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button use;
     }
 }
 

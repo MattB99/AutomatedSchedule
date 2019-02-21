@@ -47,6 +47,7 @@ namespace AutomatedSchedule
         private void button1_Click(object sender, EventArgs e)
         {
             selectedShift.Text = "";
+            calendar.BoldedDates = null;
             if (fiveDayInc.Checked == false && tenDayInc.Checked == false && twentyDayInc.Checked == false && thirtyDayInc.Checked == false)
             {
                 MessageBox.Show("Please select the number of days you'd like to search through.");
@@ -328,7 +329,6 @@ namespace AutomatedSchedule
 
                 //setup calendar
                 calendar.BoldedDates = scheduledDates;
-
                 driver.Quit(); //Quits chrome and CMD
             }
         }
@@ -432,7 +432,6 @@ namespace AutomatedSchedule
             string newstarttime, newendtime;
             string description = "";
             for (int i = 0; i < tempList.Count; i++)
-
             {
                 StreamWriter cal = new StreamWriter(FileName + calNum + ".ics");
                 cal.WriteLine("BEGIN:VCALENDAR");
@@ -477,27 +476,6 @@ namespace AutomatedSchedule
                 calNum += 1;
             }
 
-            /*
-
-                startandend[0] = Convert.ToString(Convert.Toint(startandend[0]) + 500);
-                startandend[1] = Convert.ToString(Convert.Toint(startandend[1]) + 500);
-                writer.WriteLine("BEGIN:VCALENDAR");
-                writer.WriteLine("CALSCALE:GREGORIAN");
-                writer.WriteLine("METHOD:PUBLISH");
-                writer.WriteLine("X-WR-TIMEZONE:America/New_York");
-                writer.WriteLine("BEGIN:VEVENT");
-                writer.WriteLine("DTSTART:" + calendar.SelectionStart.ToString("yyyyMMdd") + "T" + startandend[0] + "00Z");
-                if(datechecker == false)
-                    writer.WriteLine("DTEND:" + calendar.SelectionStart.ToString("yyyyMMdd") + "T"  + startandend[1] + "00Z");
-                else
-                    writer.WriteLine("DTEND:" + Convert.ToString(Convert.Toint(calendar.SelectionStart.ToString("yyyyMMdd")) + 1) + "T" + startandend[1] + "00Z");
-                writer.WriteLine("DESCRIPTION:" + selectedShift.Lines[1] + "\\n" + selectedShift.Lines[2] + "\\n" +selectedShift.Lines[3] + "\\n" + selectedShift.Lines[4]);
-                writer.WriteLine("LOCATION:");
-                writer.WriteLine("STATUS:CONFIRMED");
-                writer.WriteLine("SUMMARY:" + selectedShift.Lines[0]);
-                writer.WriteLine("END:VEVENT");
-                writer.WriteLine("END:VCALENDAR");
-            }*/
         }
 
         private void notepadView_Click(object sender, EventArgs e)

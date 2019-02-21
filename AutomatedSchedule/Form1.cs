@@ -537,6 +537,7 @@ namespace AutomatedSchedule
 
         private void allShifts_Click(object sender, EventArgs e)
         {
+            String[] jobsData = new String[jobs.Count];
             Microsoft.Office.Interop.Excel.Application oXL;
             Microsoft.Office.Interop.Excel._Workbook oWB;
             Microsoft.Office.Interop.Excel._Worksheet oSheet;
@@ -553,10 +554,26 @@ namespace AutomatedSchedule
                 oSheet = (Microsoft.Office.Interop.Excel._Worksheet)oWB.ActiveSheet;
 
                 //Add table headers going cell by cell.
-                oSheet.Cells[1, 1] = "Test";
-                oSheet.Cells[1, 2] = "Shift Date";
-                oSheet.Cells[1, 3] = "First Name";
-                oSheet.Cells[1, 4] = "Salary";
+                oSheet.Cells[1, 1] = "Virginia Tech Production Services";
+                oSheet.Cells[2, 1] = "Shift Name";
+                oSheet.Cells[2, 2] = "Shift Date";
+                oSheet.Cells[2, 3] = "Shift Staff";
+                oSheet.Cells[2, 4] = "Time Scheduled";
+                oSheet.Cells[1, 4] = "Number of Shifts: " + jobs.Count;
+                int row = 3;
+                foreach (Job j in jobs)
+                {
+                    oSheet.Cells[row, 1] = j.getJobName();
+                    oSheet.Cells[row, 2] = j.getJobDateTime().ToString("dddd, dd MMMM yyyy");
+                    foreach (Person w in j.getWorkers())
+                    {
+                        oSheet.Cells[row, 3] = w.getFirstName() + " " + w.getLastName();
+                        oSheet.Cells[row, 4] = w.getFormattedTime(w.getStartTime()) + " - " + w.getFormattedTime(w.getEndTime());
+                        row += 1;
+                    }
+                    row += 1;
+                }
+
 
                 //Format A1:D1 as bold, vertical alignment = center.
                 oSheet.get_Range("A1", "D1").Font.Bold = true;
@@ -566,35 +583,17 @@ namespace AutomatedSchedule
                 // Create an array to multiple values at once.
                 string[,] saNames = new string[5, 2];
 
-                saNames[0, 0] = "John";
-                saNames[0, 1] = "Smith";
-                saNames[1, 0] = "Tom";
-
-                saNames[4, 1] = "Johnson";
-
-                //Fill A2:B6 with an array of values (First and Last Names).
-                oSheet.get_Range("A2", "B6").Value2 = saNames;
-
-                //Fill C2:C6 with a relative formula (=A2 & " " & B2).
-                oRng = oSheet.get_Range("C2", "C6");
-                oRng.Formula = "=A2 & \" \" & B2";
-
-                //Fill D2:D6 with a formula(=RAND()*100000) and apply format.
-                oRng = oSheet.get_Range("D2", "D6");
-                oRng.Formula = "=RAND()*100000";
-                oRng.NumberFormat = "$0.00";
-
                 //AutoFit columns A:D.
-                oRng = oSheet.get_Range("A1", "D1");
+                oRng = oSheet.get_Range("A1", "J1");
                 oRng.EntireColumn.AutoFit();
 
-                oXL.Visible = false;
-                oXL.UserControl = false;
-                oWB.SaveAs("test.xls", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
-                    false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
-                    Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-
-                oWB.Close();
+                oXL.Visible = true;
+                oXL.UserControl = true;
+               // oWB.SaveAs("test.xlsx", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
+               //     false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
+               //     Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                //oWB.Close();
+                //Process.Start("text.xlsx");
             }
             catch
             {

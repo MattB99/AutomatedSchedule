@@ -58,6 +58,7 @@ namespace AutomatedSchedule
                 excelView.Visible = true;
                 notepadView.Visible = true;
                 label5.Visible = true;
+                reset.Visible = true;
                 lines = System.IO.File.ReadAllLines(@"userData.txt");
                 String fName = lines[0];
                 String lName = lines[1];
@@ -432,9 +433,11 @@ namespace AutomatedSchedule
             int calNum = 1;
             string newstarttime, newendtime;
             string description = "";
+            string path = @"Schedule Export";
+            System.IO.Directory.CreateDirectory(path);
             for (int i = 0; i < tempList.Count; i++)
             {
-                StreamWriter cal = new StreamWriter(FileName + calNum + ".ics");
+                StreamWriter cal = new StreamWriter("Schedule Export/" + FileName + calNum + ".ics");
                 cal.WriteLine("BEGIN:VCALENDAR");
                 cal.WriteLine("METHOD:PUBLISH");
                 cal.WriteLine("BEGIN:VEVENT");
@@ -476,6 +479,7 @@ namespace AutomatedSchedule
                 cal.Close();
                 calNum += 1;
             }
+            Process.Start("Schedule Export");
 
         }
 

@@ -317,6 +317,7 @@
             this.reset.TabIndex = 25;
             this.reset.Text = "Create Calendar File from Selected Shift";
             this.reset.UseVisualStyleBackColor = true;
+            this.reset.Visible = false;
             this.reset.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // DarkMode

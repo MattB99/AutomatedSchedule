@@ -379,6 +379,13 @@ namespace AutomatedSchedule
 
         private void AutomatedScheduler_Load(object sender, EventArgs e)
         {
+            if(System.IO.File.Exists(@"dm") == true)
+            {
+                if (System.IO.File.ReadAllText(@"dm") == "dark")
+                {
+                    DarkMode.Checked = true;
+                }
+            }
             fNameBox.TabIndex = 1;
             lNameBox.TabIndex = 2;
             usernameBox.TabIndex = 3;
@@ -691,7 +698,16 @@ namespace AutomatedSchedule
                 passwordBox.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
                 selectedShift.Font = new Font(defaultFont.FontFamily, defaultFont.Size, FontStyle.Regular);
             }
-
+            if (DarkMode.Checked == true)
+            {
+                System.IO.File.Delete(@"dm");
+                System.IO.File.WriteAllText(@"dm", "dark");
+            }
+            else if(DarkMode.Checked == false)
+            {
+                System.IO.File.Delete(@"dm");
+                System.IO.File.WriteAllText(@"dm", "light");
+            }
 
         }
 

@@ -436,7 +436,7 @@ namespace AutomatedSchedule
         private void button1_Click_1(object sender, EventArgs e)
         {
             List<Job> tempList = getJobsOnDay(calendar.SelectionStart);
-            string FileName = "calendar";
+            //Convert.ToString(calendar.SelectionStart);
             int calNum = 1;
             string newstarttime, newendtime;
             string description = "";
@@ -444,7 +444,8 @@ namespace AutomatedSchedule
             System.IO.Directory.CreateDirectory(path);
             for (int i = 0; i < tempList.Count; i++)
             {
-                StreamWriter cal = new StreamWriter("Schedule Export/" + FileName + calNum + ".ics");
+                string FileName = tempList[i].getJobDateTime().ToString("yyyy-MM-dd - ");
+                StreamWriter cal = new StreamWriter("Schedule Export/" + FileName + "Event#" + calNum + ".ics");
                 cal.WriteLine("BEGIN:VCALENDAR");
                 cal.WriteLine("METHOD:PUBLISH");
                 cal.WriteLine("BEGIN:VEVENT");

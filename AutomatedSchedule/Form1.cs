@@ -46,7 +46,7 @@ namespace AutomatedSchedule
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            jobs.Clear();
             selectedShift.Text = "";
             calendar.BoldedDates = null;
             if (fiveDayInc.Checked == false && tenDayInc.Checked == false && twentyDayInc.Checked == false && thirtyDayInc.Checked == false)

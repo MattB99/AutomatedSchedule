@@ -58,6 +58,7 @@
             this.DarkMode = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.use = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // getDataBtn
@@ -352,6 +353,15 @@
             this.use.UseVisualStyleBackColor = true;
             this.use.Click += new System.EventHandler(this.use_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 441);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(102, 20);
+            this.label8.TabIndex = 29;
+            this.label8.Text = "Version 1.1.0";
+            // 
             // AutomatedScheduler
             // 
             this.AccessibleDescription = "Schedule searcher for Virginia Tech\'s Production Services CEP interace.";
@@ -360,6 +370,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1255, 470);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.use);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.DarkMode);
@@ -426,6 +437,7 @@
         private System.Windows.Forms.CheckBox DarkMode;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button use;
+        private System.Windows.Forms.Label label8;
     }
 }
 

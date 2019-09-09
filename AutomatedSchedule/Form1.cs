@@ -744,7 +744,7 @@ namespace AutomatedSchedule
         private void button2_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show(
-        "Dedicated to Jeff Camp\n2013-2019\n\nPress OK to pay respects", "Dedication", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk
+        "Dedicated to Jeff Camp\nVT Production Services: 2013-2019\n\nPress OK to pay respects", "Dedication", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk
     ) == DialogResult.OK)
             {
                 System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=9g3--WYH8SY");

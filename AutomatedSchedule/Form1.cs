@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Globalization;
 
 
+
 namespace AutomatedSchedule
 {
     public partial class AutomatedScheduler : Form
@@ -738,6 +739,16 @@ namespace AutomatedSchedule
                 "The calendar output file is intended for Google Calendar. \n\n" +
                 "Select the 'dark mode' checkbox to enable dark mode.\n\n\n\n"+
                 "This program is not a substitute for double checking your shifts. We are not responsible if the software malfunctions.");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(
+        "Dedicated to Jeff Camp", "Jeff", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk
+    ) == DialogResult.Yes)
+            {
+                System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=9g3--WYH8SY");
+            }
         }
     }
 }

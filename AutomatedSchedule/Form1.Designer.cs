@@ -59,6 +59,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.use = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // getDataBtn
@@ -362,6 +363,18 @@
             this.label8.TabIndex = 29;
             this.label8.Text = "Version 1.1.0";
             // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.SystemColors.Menu;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.Location = new System.Drawing.Point(13, 347);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(100, 59);
+            this.button2.TabIndex = 30;
+            this.button2.Text = "Jeff";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // AutomatedScheduler
             // 
             this.AccessibleDescription = "Schedule searcher for Virginia Tech\'s Production Services CEP interace.";
@@ -370,6 +383,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1255, 470);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.use);
             this.Controls.Add(this.button1);
@@ -438,6 +452,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button use;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button2;
     }
 }
 
